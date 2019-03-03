@@ -6,11 +6,14 @@ $(function(){
 var attaque = true;
 var gagne = true;
 var trouve = false;
+var trouve2 = 'false';
+var fin = "ok";
 var i = 0;
 var j = 0;
 var partie = "en cours";
 var joueur = "Joueur1";
-
+imax = 9;
+jmax = 9; 
 
 
 // Création du tableau HTML
@@ -61,7 +64,7 @@ function placeArme(arme){
         
 }
 
-
+// Creation de la carte
 // initialisation de la carte 
 for (i =0; i<12; i++) {
     var indiceLigne= Math.floor(Math.random()*9);
@@ -148,21 +151,14 @@ for (i = 0; i < table.rows.length; i++) {
         
     }
 }
-imax = 9;
-jmax = 9; 
+ ////////////////////////////////////////////////////////////////////////////   
+// Fin Creation de la carte
 
-/*function deplace(n) {
-    table.rows[i].cells[j].style.border = "3px solid black";
-                
-    $("img").on("click", function() {
 
-        alert("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + i1+ ", "+ j1+ ", "+ i+ ", "+ j+ ", "+ n);
-    });
-}*/
 
 //classe Joueur (définition)
 class Joueur {
-    init(nom, vie, arme) {
+    init(nom, vie, arme, i1, j1) {
         this.nom = nom;
         this.vie = vie;
         this.arme= arme;
@@ -173,18 +169,18 @@ class Joueur {
     //description du joueur
     
     decrire() {
-        return'${this.nom} a ${this.vie} points de vie, il possede le ${this.arme}';
+        console.log('${this.nom} a ${this.vie} points de vie, il possede le ${this.arme}');
     }
     
     repereJoueur(n) {
-    var trouve = 'false';
-    while (trouve === 'false') {
+    //var trouve2 = 'false';
+    while (trouve2 === 'false') {
         for (i = 0; i < table.rows.length; i++) {
             for (j = 0; j < table.rows[i].cells.length; j++) {
                 if (table.rows[i].cells[j].innerHTML === '<img src="../joueur' + n +'.png">') {
                     this.i1 = i;
                     this.j1 = j;
-                    trouve = 'true';
+                    trouve2 = 'true';
                     console.log("la valeur i"+ n + " :" + this.i1);
                     
                     console.log("la valeur j" + n + " :" + this.j1);
@@ -196,25 +192,27 @@ class Joueur {
         
     }
     deplaceJoueur(n) {
-    trouve = 'false';
+    trouve2 = 'false';
+    fin = "ok";
    
-    while(trouve === 'false') {
+    while((trouve2 === 'false') && (fin === "ok")) {
     var j = this.j1;
     for (i=this.i1-1; i>=this.i1-3;i--) {
-        if (trouve === 'false') {
+        if (trouve2 === 'false') {
             if (i<0) {
-                trouve = 'true';
+                trouve2 = 'true';
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                     table.rows[i].cells[j].style.border = "3px solid black";
                 
                     $("img").on("click", function() {
                        
-                        alert("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + i1+ ", "+ j1+ ", "+ i+ ", "+ j+ ", "+ n);
+                        console.log("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + this.i1 + ", " + this.j1 + ", " + i + ", " + j + ", " + n);
+                        fin = "";
                     });
                     
                     
                     } else {
-                            trouve = 'true';
+                            trouve2 = 'true';
                             }
             
              }
@@ -224,71 +222,74 @@ class Joueur {
         }
     }
     
-    trouve = 'false';
+    trouve2 = 'false';
     
-    while(trouve === 'false') {
+    while((trouve2 === 'false') && (fin === "ok")) {
     var j = this.j1;
     for (i=this.i1+1; i<=this.i1+3;i++) {
-        if (trouve === 'false') {
+        if (trouve2 === 'false') {
         
             if (i>(imax-1)) {
-                trouve = 'true';
+                trouve2 = 'true';
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                         table.rows[i].cells[j].style.border = "3px solid black";
                 
                         $("img").on("click", function() {
-                            alert("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + i1+ ", "+ j1+ ", "+ i+ ", "+ j+ ", "+ n);
+                            console.log("tu viens de cliquer en bas du joueur ! , les parametres sont (i1, J1, i, j, n) : " + this.i1 + ", " + this.j1 + ", " + i + ", " + j + ", " + n);
+                            fin = "";
                         });
                         } else {
-                            trouve = 'true';
+                            trouve2 = 'true';
                             }
             }
 
         } 
     }
 
-    trouve = 'false';
+    trouve2 = 'false';
     
-    while(trouve === 'false') {
+    while((trouve2 === 'false') && (fin === "ok")) {
     var i =this.i1;
     for (j=this.j1-1; j>=this.j1-3;j--) {
-        if (trouve === 'false') {
+        if (trouve2 === 'false') {
         
         if (j<0) {
-            trouve = 'true';
+            trouve2 = 'true';
             } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                         table.rows[i].cells[j].style.border = "3px solid black";
 
                         $("img").on("click", function() {
-                            alert("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + i1+ ", "+ j1+ ", "+ i+ ", "+ j+ ", "+ n);
+                            console.log("tu viens de cliquer a gauche du joueur ! , les parametres sont (i1, J1, i, j, n) : " + this.i1 + ", " + this.j1 + ", " + i + ", " + j + ", " + n);
+                            fin = "";
                         });
                     } else {
-                        trouve = 'true';
+                        trouve2 = 'true';
                         }
             }
 
         }
     }
 
-    trouve = 'false';
+    trouve2 = 'false';
     
-    while(trouve === 'false') {
+    while((trouve2 === 'false') && (fin === "ok")) {
     var i =this.i1;
     for (j=this.j1+1; j<=this.j1+3;j++) {
-        if (trouve === 'false'){
+        if (trouve2 === 'false'){
         
 
         if (j>(jmax-1)) {
-            trouve = 'true';
+            trouve2 = 'true';
             } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                     table.rows[i].cells[j].style.border = "3px solid black";
                 
                     $("img").on("click", function() {
                        
-                        alert("tu viens de cliquer en haut du joueur ! , les parametres sont (i1, J1, i, j, n) : " + i1+ ", "+ j1+ ", "+ i+ ", "+ j+ ", "+ n);
+                        console.log("tu viens de cliquer a droite du joueur ! , les parametres sont (i1, J1, i, j, n) : " + this.i1 + ", " + this.j1 + ", " + i + ", " + j + ", " + n);
+                        fin = "";
                     });
                     } else {
-                        trouve = 'true';
+                        trouve2 = 'true';
                         }
             }
 
@@ -315,23 +316,8 @@ class Joueur {
 
 //début programme principal
 
-/*while (partie !== "fini") {
-    i++;
-   
-    if (i % 2 === 0) {
-        //document.getElementById("tourRole").innerHTML = "joueur1";
-        console.log("joueur1");
-        
-    } else {
-        //document.getElementById("tourRole").innerHTML = "joueur2";
-        console.log("joueur2");
-        
-        
-    }
-       
-       }*/
-/*var nb_tour = 1;
 
+/*var nb_tour = 1;
 
 do while(nb_tour <= 3) {
     if (nb_tour % 2 !== 0) {
@@ -344,11 +330,14 @@ do while(nb_tour <= 3) {
     nb_tour++;     
          }*/
 
+    
+    
 joueur1 = new Joueur("Joueur1", 100, "arme1");
  
-msg = ' ' + joueur + ' (' + joueur1.decrire() + ' )';
-document.getElementById("tourRole").after(msg);
+//msg = ' ' + joueur + ' (' + joueur1.decrire() + ' )';
+//document.getElementById("tourRole").after(msg);
 
 joueur1.repereJoueur(1);
-//joueur1.deplaceJoueur(1);
+joueur1.decrire();
+joueur1.deplaceJoueur(1);
 })
