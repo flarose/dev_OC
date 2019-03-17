@@ -13,8 +13,9 @@ var j = 0;
 let imax = 9;
 let jmax = 9; 
 var n = 20;
-var pos_i = 0;
-var pos_j = 0;
+var playerX=0;
+var playerY=0;
+//var clique = true;
  
 
 //Definition de la classe Joueur
@@ -50,7 +51,7 @@ class Joueur {
         }
         
     }
-   deplaceJoueur(){
+   deplaceJoueur(n){
     
     trouve = false;
     var j = this.j1; 
@@ -61,8 +62,30 @@ class Joueur {
                     } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                             table.rows[i].cells[j].style.border = "3px solid black";
                             console.log("indices i, j : " + i + ", " + j);
-                            table.rows[i].cells[j].innerHTML = '<img class="highlight" src="../case1.png">';
-                            console.log(table.rows[i].cells[j].innerHTML);
+                            table.rows[i].cells[j].classList.add("highlight");
+                            $('.highlight').on('click', function() {
+            
+                                var newX = $(this).closest("tr").index();
+                                var newY = $(this).closest("td").index();
+                                //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+
+                                var elementImage = document.createElement("img");
+                                elementImage.src = "../case1.png";
+                                table.rows[playerX].cells[playerY].innerHTML = '';
+                                table.rows[playerX].cells[playerY].appendChild(elementImage);
+
+                                playerX = newX;
+                                playerY = newY;
+
+                                var elementImage = document.createElement("img");
+                                elementImage.src = "../joueur" + n + ".png";
+                                table.rows[playerX].cells[playerY].innerHTML = '';
+                                table.rows[playerX].cells[playerY].appendChild(elementImage);
+                                clearHighlight();
+                                
+                             })
+                            
+                            //console.log(table.rows[i].cells[j].innerHTML);
                     }
                     else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
                     {
@@ -83,9 +106,30 @@ class Joueur {
                         
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
-                        //table.rows[i].cells[j].classList.add("highlight");
-                        table.rows[i].cells[j].innerHTML = '<img class="highlight" src="../case1.png">';
-                        console.log(table.rows[i].cells[j].innerHTML);
+                        table.rows[i].cells[j].classList.add("highlight");
+                        $('.highlight').on('click', function() {
+            
+                            var newX = $(this).closest("tr").index();
+                            var newY = $(this).closest("td").index();
+                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../case1.png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+
+                            playerX = newX;
+                            playerY = newY;
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../joueur" + n + ".png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                            clearHighlight();
+                            
+                         })
+                        
+                        //console.log(table.rows[i].cells[j].innerHTML);
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
                 {
@@ -106,9 +150,30 @@ class Joueur {
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
-                        //table.rows[i].cells[j].classList.add("highlight");
-                        table.rows[i].cells[j].innerHTML = '<img class="highlight" src="../case1.png">';
-                        console.log(table.rows[i].cells[j].innerHTML);
+                        table.rows[i].cells[j].classList.add("highlight");
+                        $('.highlight').on('click', function() {
+            
+                            var newX = $(this).closest("tr").index();
+                            var newY = $(this).closest("td").index();
+                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../case1.png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+
+                            playerX = newX;
+                            playerY = newY;
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../joueur" + n + ".png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                            clearHighlight();
+                            
+                         })
+                        
+                        //console.log(table.rows[i].cells[j].innerHTML);
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">') {
                     trouve = true;
@@ -128,58 +193,58 @@ class Joueur {
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
-                        //table.rows[i].cells[j].classList.add("highlight");
-                        table.rows[i].cells[j].innerHTML = '<img class="highlight" src="../case1.png">';
-                        console.log(table.rows[i].cells[j].innerHTML);
+                        table.rows[i].cells[j].classList.add("highlight");
+                        $('.highlight').on('click', function() {
+            
+                            var newX = $(this).closest("tr").index();
+                            var newY = $(this).closest("td").index();
+                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../case1.png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+
+                            playerX = newX;
+                            playerY = newY;
+
+                            var elementImage = document.createElement("img");
+                            elementImage.src = "../joueur" + n + ".png";
+                            table.rows[playerX].cells[playerY].innerHTML = '';
+                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                            clearHighlight();
+                            
+                         })
+                        //console.log(table.rows[i].cells[j].innerHTML);
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">') {
                     trouve = true;
                     }
         }
     }
+       
     
         
     }
     
-    deplacementJoueur() {
-            
-         $('highlight').on('click', function() {
-             
-            var newX = $(this).closest("tr").index();
-            var newY = $(this).closest("td").index();
-            alert("tu as cliqué sur la case : " + newX + ", " + newY);
-            
-            var elementImage = document.createElement("img");
-            elementImage.src = "../case1.png";
-            table.rows[this.i1].cells[this.j1].innerHTML = '';
-            table.rows[this.i1].cells[this.j1].appendChild(elementImage);
-
-            this.i1 = newX;
-            this.j1 = newY;
-
-            var elementImage = document.createElement("img");
-            elementImage.src = "../joueur1.png";
-            table.rows[this.i1].cells[this.j1].innerHTML = '';
-            table.rows[this.i1].cells[this.j1].appendChild(elementImage);
-         })
-    }
   
-    
-    clearHighlight() {
+  
+}  
+ function clearHighlight() {
         for (i=0; i <imax; i++) {
             for (j=0; j <jmax; j++) {
-               if (table.rows[i].cells[j].innerHTML === '<img class="highlight" src="../case1.png">') {
+               
                    table.rows[i].cells[j].style.border = "";
                    table.rows[i].cells[j].classList.remove("highlight"); 
-                   console.log("Indices des 'highlight' effaces : " + i + ", " +j);
-                   console.log(table.rows[i].cells[i].innerHTML);
-                }
+                   //console.log("Indices des 'highlight' effaces : " + i + ", " +j);
+                   //console.log(table.rows[i].cells[i].innerHTML);
+                
                    
             }
         }
         
-    }
-}   
+    }  
+
     
 // Création du tableau HTML
 var table = document.getElementById("tableau");
@@ -342,18 +407,22 @@ programme principal
  do {
      if ((n/10) % 2 === 0) {
          joueur1.repereJoueur(1);
+         playerX = joueur1.i1;
+         playerY = joueur1.j1;
          joueur1.decrire();
-         joueur1.deplaceJoueur();
+         //joueur1.deplaceJoueur(1);
          
          n+=10;
          
         } else {
          alert('cliquez pour continuer');
-         joueur1.clearHighlight();
          joueur2.repereJoueur(2);
+         playerX = joueur2.i1;
+         playerY = joueur2.j1;
          joueur2.decrire();
-         joueur2.deplaceJoueur();
-         joueur2.deplacementJoueur();
+         joueur2.deplaceJoueur(2);
+         
+         
          
          n+=10;
          gagne = false;

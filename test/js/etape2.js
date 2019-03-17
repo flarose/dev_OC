@@ -190,7 +190,7 @@ $(function(){
 	}
 	
 	//Détecter le clic sur une case et y positionner un joueur
-	$('td').click(function(){		//TODO : APPLY FOR HIGHLIGHTED CELLS ONLY
+	$('.highlight').click(function(){		//TODO : APPLY FOR HIGHLIGHTED CELLS ONLY
 		
 		var newX = $(this).closest("tr").index();
 		var newY = $(this).closest("td").index();
@@ -211,5 +211,7 @@ $(function(){
 		highlight(playerX, playerY);
 		
 	})
+    
+   
 
 })
