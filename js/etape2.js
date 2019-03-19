@@ -1,22 +1,36 @@
 $(function(){
-    
-
-    
+   
 // Variables globales
 //var attaque = true;
 var gagne = true;
 var trouve = false;
 var i = 0;
 var j = 0;
+var nbre_tour=0;
 //var partie = "en cours";
 //var joueur = "Joueur1";
 let imax = 9;
 let jmax = 9; 
-var n = 20;
+var N = 1;
 var playerX=0;
 var playerY=0;
 //var clique = true;
- 
+var clear = false;
+var Armes =[
+    {nom_Arme :"arme1",
+     degat_Arme :10
+    },
+    {nom_Arme :"arme2",
+     degat_Arme :15
+    },
+    {nom_Arme :"arme3",
+     degat_Arme :5
+    },
+    {nom_Arme :"arme4",
+     degat_Arme :20
+    }
+    
+]
 
 //Definition de la classe Joueur
 class Joueur {
@@ -33,17 +47,18 @@ class Joueur {
     }
     
     repereJoueur(n) {
-    var trouve = false;
+    trouve = false;
     while (trouve === false) {
         for (i = 0; i < table.rows.length; i++) {
             for (j = 0; j < table.rows[i].cells.length; j++) {
                 if (table.rows[i].cells[j].innerHTML === '<img src="../joueur' + n +'.png">') {
+    
                     this.i1 = i;
                     this.j1 = j;
                     trouve = true;
-                    console.log("la valeur i"+ n + " :" + this.i1);
+                    console.log("la valeur i de "+ this.nom + " :" + this.i1);
                     
-                    console.log("la valeur j" + n + " :" + this.j1);
+                    console.log("la valeur j de " + this.nom + " :" + this.j1);
 
                     }
             }
@@ -63,29 +78,20 @@ class Joueur {
                             table.rows[i].cells[j].style.border = "3px solid black";
                             console.log("indices i, j : " + i + ", " + j);
                             table.rows[i].cells[j].classList.add("highlight");
-                            $('.highlight').on('click', function() {
-            
-                                var newX = $(this).closest("tr").index();
-                                var newY = $(this).closest("td").index();
-                                //alert("tu as cliqué sur la case : " + newX + ", " + newY);
-
-                                var elementImage = document.createElement("img");
-                                elementImage.src = "../case1.png";
-                                table.rows[playerX].cells[playerY].innerHTML = '';
-                                table.rows[playerX].cells[playerY].appendChild(elementImage);
-
-                                playerX = newX;
-                                playerY = newY;
-
-                                var elementImage = document.createElement("img");
-                                elementImage.src = "../joueur" + n + ".png";
-                                table.rows[playerX].cells[playerY].innerHTML = '';
-                                table.rows[playerX].cells[playerY].appendChild(elementImage);
-                                clearHighlight();
-                                
-                             })
+                            while (nbre_tour<3) {
+                            highlight(n);
+                            this.i1 = playerX;
+                            this.j1 = playerY;
+                            clearHighlight();
+                            if(n===1) {
+                                n=2;
+                                } else {
+                                    n=1;
+                                    }
+                            nbre_tour++;
+                            }
                             
-                            //console.log(table.rows[i].cells[j].innerHTML);
+                            
                     }
                     else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
                     {
@@ -107,29 +113,20 @@ class Joueur {
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
                         table.rows[i].cells[j].classList.add("highlight");
-                        $('.highlight').on('click', function() {
-            
-                            var newX = $(this).closest("tr").index();
-                            var newY = $(this).closest("td").index();
-                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../case1.png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
-
-                            playerX = newX;
-                            playerY = newY;
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../joueur" + n + ".png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                        while (nbre_tour<3) {
+                            highlight(n);
+                            this.i1 = playerX;
+                            this.j1 = playerY;
                             clearHighlight();
-                            
-                         })
+                            if(n===1) {
+                                n=2;
+                                } else {
+                                    n=1;
+                                    }
+                            nbre_tour++;
+                            }
                         
-                        //console.log(table.rows[i].cells[j].innerHTML);
+                        
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
                 {
@@ -151,29 +148,20 @@ class Joueur {
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
                         table.rows[i].cells[j].classList.add("highlight");
-                        $('.highlight').on('click', function() {
-            
-                            var newX = $(this).closest("tr").index();
-                            var newY = $(this).closest("td").index();
-                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../case1.png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
-
-                            playerX = newX;
-                            playerY = newY;
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../joueur" + n + ".png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                        while (nbre_tour<3) {
+                            highlight(n);
+                            this.i1 = playerX;
+                            this.j1 = playerY;
                             clearHighlight();
-                            
-                         })
+                            if(n===1) {
+                                n=2;
+                                } else {
+                                    n=1;
+                                    }
+                            nbre_tour++;
+                            }
                         
-                        //console.log(table.rows[i].cells[j].innerHTML);
+                        
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">') {
                     trouve = true;
@@ -194,28 +182,21 @@ class Joueur {
                         table.rows[i].cells[j].style.border = "3px solid black";
                         console.log("indices i, j : " + i + ", " + j);
                         table.rows[i].cells[j].classList.add("highlight");
-                        $('.highlight').on('click', function() {
-            
-                            var newX = $(this).closest("tr").index();
-                            var newY = $(this).closest("td").index();
-                            //alert("tu as cliqué sur la case : " + newX + ", " + newY);
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../case1.png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
-
-                            playerX = newX;
-                            playerY = newY;
-
-                            var elementImage = document.createElement("img");
-                            elementImage.src = "../joueur" + n + ".png";
-                            table.rows[playerX].cells[playerY].innerHTML = '';
-                            table.rows[playerX].cells[playerY].appendChild(elementImage);
+                        
+                        
+                        while (nbre_tour<3) {
+                            highlight(n);
+                            this.i1 = playerX;
+                            this.j1 = playerY;
                             clearHighlight();
-                            
-                         })
-                        //console.log(table.rows[i].cells[j].innerHTML);
+                            if(n===1) {
+                                n=2;
+                                } else {
+                                    n=1;
+                                    }
+                            nbre_tour++;
+                            }
+                        
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">') {
                     trouve = true;
@@ -229,21 +210,50 @@ class Joueur {
     
   
   
-}  
+} 
+    
+function highlight(n) {
+     $('.highlight').on('click', function() {
+            
+        var newX = $(this).closest("tr").index();
+        var newY = $(this).closest("td").index();
+        //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+
+        var elementImage = document.createElement("img");
+        elementImage.src = "../case1.png";
+        table.rows[playerX].cells[playerY].innerHTML = '';
+        table.rows[playerX].cells[playerY].appendChild(elementImage);
+
+        playerX = newX;
+        playerY = newY;
+
+        var elementImage = document.createElement("img");
+        elementImage.src = "../joueur" + n + ".png";
+        table.rows[playerX].cells[playerY].innerHTML = '';
+        table.rows[playerX].cells[playerY].appendChild(elementImage);
+        
+                                
+        })
+}
+    
  function clearHighlight() {
         for (i=0; i <imax; i++) {
             for (j=0; j <jmax; j++) {
                
                    table.rows[i].cells[j].style.border = "";
                    table.rows[i].cells[j].classList.remove("highlight"); 
-                   //console.log("Indices des 'highlight' effaces : " + i + ", " +j);
-                   //console.log(table.rows[i].cells[i].innerHTML);
+                   
                 
                    
             }
         }
+        return true;
         
     }  
+
+/*function detecteCombat() {
+    
+}*/
 
     
 // Création du tableau HTML
@@ -264,6 +274,7 @@ function placeMur(i, j){
 }
 
 function placeJoueur(joueur){
+    trouve=false;
     while (trouve !== true) {
         var i= Math.floor(Math.random()*9);
         var j= Math.floor(Math.random()*9);
@@ -273,13 +284,14 @@ function placeJoueur(joueur){
             } 
            
         }
-    trouve = false;   
+    //trouve = false;   
    
         
         
 }
 
 function placeArme(arme){
+    trouve = false;
     while (trouve !== true) {
         var i= Math.floor(Math.random()*9);
         var j= Math.floor(Math.random()*9);
@@ -289,7 +301,7 @@ function placeArme(arme){
             } 
            
         }
-    trouve = false;   
+       
    
         
         
@@ -392,44 +404,24 @@ for (i = 0; i < table.rows.length; i++) {
 // Fin Creation de la carte
 
 
-
-
-    
-joueur1 = new Joueur('Joueur1', 100, 'arme1');
-joueur2 = new Joueur('Joueur2', 100, 'arme2');
-
-
-
+//joueur1 = new Joueur('Joueur1', 100, 'arme1');
+//joueur2 = new Joueur('Joueur2', 100, 'arme2');
+joueurBoard = new Joueur('Joueur1', 100, 'arme1');
 
 /* 
 programme principal
 */
- do {
-     if ((n/10) % 2 === 0) {
-         joueur1.repereJoueur(1);
-         playerX = joueur1.i1;
-         playerY = joueur1.j1;
-         joueur1.decrire();
-         //joueur1.deplaceJoueur(1);
-         
-         n+=10;
-         
-        } else {
-         alert('cliquez pour continuer');
-         joueur2.repereJoueur(2);
-         playerX = joueur2.i1;
-         playerY = joueur2.j1;
-         joueur2.decrire();
-         joueur2.deplaceJoueur(2);
-         
-         
-         
-         n+=10;
-         gagne = false;
-        }
-     
- } while(gagne === true)
+    
 
+
+ 
+   
+        joueurBoard.decrire();
+        joueurBoard.repereJoueur(N);
+        
+        joueurBoard.deplaceJoueur(N);
+     
+        
 
     
     
