@@ -11,26 +11,19 @@ var nbre_tour=0;
 //var joueur = "Joueur1";
 let imax = 9;
 let jmax = 9; 
-var N = 1;
+//var N = 1;
 var playerX=0;
 var playerY=0;
 //var clique = true;
 var clear = false;
-var Armes =[
-    {nom_Arme :"arme1",
-     degat_Arme :10
-    },
-    {nom_Arme :"arme2",
-     degat_Arme :15
-    },
-    {nom_Arme :"arme3",
-     degat_Arme :5
-    },
-    {nom_Arme :"arme4",
-     degat_Arme :20
+
+
+class Arme {
+    constructor(nom, degat) {
+        this.nom = nom;
+        this.degat = degat;
     }
-    
-]
+}
 
 //Definition de la classe Joueur
 class Joueur {
@@ -42,55 +35,55 @@ class Joueur {
         this.j1 =0;
     }
     
-    decrire() {
-        console.log(this.nom + ' a ' + this.vie + ' points de vie, il possede le ' + this.arme);
-    }
-    
     repereJoueur(n) {
-    trouve = false;
-    while (trouve === false) {
-        for (i = 0; i < table.rows.length; i++) {
-            for (j = 0; j < table.rows[i].cells.length; j++) {
-                if (table.rows[i].cells[j].innerHTML === '<img src="../joueur' + n +'.png">') {
-    
-                    this.i1 = i;
-                    this.j1 = j;
-                    trouve = true;
-                    console.log("la valeur i de "+ this.nom + " :" + this.i1);
-                    
-                    console.log("la valeur j de " + this.nom + " :" + this.j1);
+        trouve = false;
+        while (trouve === false) {
+            for (i = 0; i < table.rows.length; i++) {
+                for (j = 0; j < table.rows[i].cells.length; j++) {
+                    if (table.rows[i].cells[j].innerHTML === '<img src="../joueur' + n +'.png">') {
 
-                    }
+                        this.i1 = i;
+                        this.j1 = j;
+                        trouve = true;
+                        console.log("la valeur i de :" + this.i1);
+
+                        console.log("la valeur j de :" + this.j1);
+
+                        }
+                }
+                }
             }
-            }
-        }
-        
+
+    }   
+    
+    decrire() {
+        console.log(this.nom + ' a ' + this.vie + ' points de vie, il possede le ' + this.arme.nom);
     }
-   deplaceJoueur(n){
+    
+
+   deplaceJoueur(){
     
     trouve = false;
+    clearHighlight();
+       
     var j = this.j1; 
     for (i=this.i1-1; i>=this.i1-3;i--) {
             if(trouve === false) {
                 if (i<0) {
                     trouve = true;
                     } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                            table.rows[i].cells[j].style.border = "3px solid black";
-                            console.log("indices i, j : " + i + ", " + j);
-                            table.rows[i].cells[j].classList.add("highlight");
-                            while (nbre_tour<3) {
-                            highlight(n);
-                            this.i1 = playerX;
-                            this.j1 = playerY;
-                            clearHighlight();
-                            if(n===1) {
-                                n=2;
-                                } else {
-                                    n=1;
-                                    }
-                            nbre_tour++;
-                            }
                             
+                        //Alors mettre en surbrillance
+                        console.log("indices en surbrillance i, j : " + i + "," +j);
+						table.rows[i].cells[j].style.border = "3px solid black";
+                        var divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[j].innerHTML='';
+                        table.rows[i].cells[j].appendChild(divElement);
+                        
+                        console.log(table.rows[i].cells[j].innerHTML);
                             
                     }
                     else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
@@ -109,22 +102,17 @@ class Joueur {
             if (i>(imax-1)) {
                 trouve = true;
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
+                       //Alors mettre en surbrillance
+						table.rows[i].cells[j].style.border = "3px solid black";
+                        var divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[j].innerHTML='';
+                        table.rows[i].cells[j].appendChild(divElement);
                         
-                        table.rows[i].cells[j].style.border = "3px solid black";
-                        console.log("indices i, j : " + i + ", " + j);
-                        table.rows[i].cells[j].classList.add("highlight");
-                        while (nbre_tour<3) {
-                            highlight(n);
-                            this.i1 = playerX;
-                            this.j1 = playerY;
-                            clearHighlight();
-                            if(n===1) {
-                                n=2;
-                                } else {
-                                    n=1;
-                                    }
-                            nbre_tour++;
-                            }
+                        console.log(table.rows[i].cells[j].innerHTML); 
+                        
                         
                         
                 }
@@ -145,21 +133,16 @@ class Joueur {
             if (j<0) {
                 trouve = true;
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                        table.rows[i].cells[j].style.border = "3px solid black";
-                        console.log("indices i, j : " + i + ", " + j);
-                        table.rows[i].cells[j].classList.add("highlight");
-                        while (nbre_tour<3) {
-                            highlight(n);
-                            this.i1 = playerX;
-                            this.j1 = playerY;
-                            clearHighlight();
-                            if(n===1) {
-                                n=2;
-                                } else {
-                                    n=1;
-                                    }
-                            nbre_tour++;
-                            }
+                       //Alors mettre en surbrillance
+						table.rows[i].cells[j].style.border = "3px solid black";
+                        var divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[j].innerHTML='';
+                        table.rows[i].cells[j].appendChild(divElement);
+                        
+                        console.log(table.rows[i].cells[j].innerHTML); 
                         
                         
                 }
@@ -179,23 +162,16 @@ class Joueur {
             if (j>(jmax-1)) {
                 trouve = true;
                 } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                        table.rows[i].cells[j].style.border = "3px solid black";
-                        console.log("indices i, j : " + i + ", " + j);
-                        table.rows[i].cells[j].classList.add("highlight");
+                       //Alors mettre en surbrillance
+						table.rows[i].cells[j].style.border = "3px solid black";
+                        var divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[j].innerHTML='';
+                        table.rows[i].cells[j].appendChild(divElement);
                         
-                        
-                        while (nbre_tour<3) {
-                            highlight(n);
-                            this.i1 = playerX;
-                            this.j1 = playerY;
-                            clearHighlight();
-                            if(n===1) {
-                                n=2;
-                                } else {
-                                    n=1;
-                                    }
-                            nbre_tour++;
-                            }
+                        console.log(table.rows[i].cells[j].innerHTML);
                         
                 }
                 else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">') {
@@ -211,6 +187,8 @@ class Joueur {
   
   
 } 
+
+
     
 function highlight(n) {
      $('.highlight').on('click', function() {
@@ -402,24 +380,74 @@ for (i = 0; i < table.rows.length; i++) {
 }
  ////////////////////////////////////////////////////////////////////////////   
 // Fin Creation de la carte
+arme1 = new Arme('Arme1', 10);
+arme2 = new Arme('Arme2', 5);
+arme3 = new Arme('Arme3', 15);
+arme4 = new Arme('Arme4', 20);
+
+joueur1 = new Joueur('Joueur1', 100, arme1);
+joueur2 = new Joueur('Joueur2', 100, arme2);
 
 
-//joueur1 = new Joueur('Joueur1', 100, 'arme1');
-//joueur2 = new Joueur('Joueur2', 100, 'arme2');
-joueurBoard = new Joueur('Joueur1', 100, 'arme1');
-
+//joueurBoard = new Joueur('Joueur1', 100, 'arme1');
+joueur1.repereJoueur(1);
+joueur2.repereJoueur(2);
 /* 
 programme principal
 */
-    
+    while(gagne) {
+        
+          if(nbre_tour % 2 === 0) {
+              //joueur1.repereJoueur(1);
+              joueur1.deplaceJoueur();
+              playerX = joueur1.i1;
+              playerY = joueur1.j1;
+              highlight(1);
+              
+              // simulation : le joueur 1 attaque
+              /*console.log("le joueur1 attaque "); 
+              joueur2.vie = joueur2.vie - joueur1.arme.degat;
+              
+              
+              if (joueur2.vie <=0) {
+                  gagne = false;
+                  console.log("joueur1 a gagné");
+                  console.log("il a gagné en : " + nbre_tour);
+              }
+              */
+              
+          }else {
+              
+              //joueur2.repereJoueur(2);
+              joueur2.deplaceJoueur();
+              playerX = joueur2.i1;
+              playerY = joueur2.j1;
+              highlight(2);
+              //simulation : le joueur2 attaque
+              /*console.log("le joueur2 attaque "); 
+              joueur1.vie = joueur1.vie - joueur2.arme.degat;
+              
+              if (joueur1.vie <=0) {
+                  gagne = false;
+                  console.log("joueur2 a gagné");
+                  console.log("il a gagné en : " + nbre_tour);
+              }*/
+              
+             
+          }
+          
+          //joueur1.decrire();
+          //joueur2.decrire();
+          nbre_tour++;
+          }
 
 
- 
+        /*joueurBoard.repereJoueur(N);
    
         joueurBoard.decrire();
-        joueurBoard.repereJoueur(N);
         
-        joueurBoard.deplaceJoueur(N);
+        
+        joueurBoard.deplaceJoueur(N);*/
      
         
 

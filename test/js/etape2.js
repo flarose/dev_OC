@@ -3,6 +3,7 @@ $(function(){
 	//Positionnement initial
 	var playerX = 0;
 	var playerY = 0;
+    var nb_tour = 0;
 
 	//Création du tableau vierge
 	var table = document.getElementById("tableau");
@@ -42,8 +43,8 @@ $(function(){
 	table.rows[playerX].cells[playerY].innerHTML = '';
 	table.rows[playerX].cells[playerY].appendChild(elementImage);
 	
-	highlight(playerX, playerY);
-
+	
+    highlight(playerX, playerY);
 	
 	//Mettre en surbrillance les cases accessibles pour le déplacement du joueur
 	function highlight(x, y) {
@@ -64,11 +65,20 @@ $(function(){
 				
 				//S'il s'agit bien d'une case vide, et non d'un mur
 				else if (table.rows[i].cells[y].innerHTML === '<img src="../case1.png">') {
-					
+					    //console.log("indices en surbrillance i, j : " + i + "," +j);
 						//Alors mettre en surbrillance
 						table.rows[i].cells[y].style.border = "3px solid black";
+                        divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[y].innerHTML='';
+                        table.rows[i].cells[y].appendChild(divElement);
+                        
+                        console.log(table.rows[i].cells[y].innerHTML);
+                        
 					
-						table.rows[i].cells[y].classList.add("highlight");
+						
 	
 				}
 				//Si on croise un mur, on arrête le traitement dans cette direction				
@@ -94,11 +104,19 @@ $(function(){
 				
 				//S'il s'agit bien d'une case vide, et non d'un mur
 				else if (table.rows[i].cells[y].innerHTML === '<img src="../case1.png">') {
-					
+					    console.log("indices en surbrillance i, j : " + i + "," +j);
 						//Alors mettre en surbrillance
 						table.rows[i].cells[y].style.border = "3px solid black";
+                        divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[i].cells[y].innerHTML='';
+                        table.rows[i].cells[y].appendChild(divElement);
+                        
+                        console.log(table.rows[i].cells[y].innerHTML);
 					
-						table.rows[i].cells[y].classList.add("highlight");
+						
 	
 				}
 				//Si on croise un mur, on arrête le traitement dans cette direction				
@@ -124,11 +142,18 @@ $(function(){
 				
 				//S'il s'agit bien d'une case vide, et non d'un mur
 				else if (table.rows[x].cells[i].innerHTML === '<img src="../case1.png">') {
-					
+					    console.log("indices en surbrillance i, j : " + i + "," +j);
 						//Alors mettre en surbrillance
 						table.rows[x].cells[i].style.border = "3px solid black";
-					
-						table.rows[x].cells[i].classList.add("highlight");
+                        divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[x].cells[i].innerHTML='';
+                        table.rows[x].cells[i].appendChild(divElement);
+                        
+                        console.log(table.rows[x].cells[i].innerHTML);
+						
 	
 				}
 				//Si on croise un mur, on arrête le traitement dans cette direction				
@@ -154,11 +179,17 @@ $(function(){
 				
 				//S'il s'agit bien d'une case vide, et non d'un mur
 				else if (table.rows[x].cells[i].innerHTML === '<img src="../case1.png">') {
-					
+					    console.log("indices en surbrillance i, j : " + i + "," +j);
 						//Alors mettre en surbrillance
 						table.rows[x].cells[i].style.border = "3px solid black";
-					
-						table.rows[x].cells[i].classList.add("highlight");
+                        divElement = document.createElement("div");
+                        divElement.classList.add("highlight");
+                        divElement.innerHTML = '<img src="../case1.png">';
+                        console.log(divElement.innerHTML);
+                        table.rows[x].cells[i].innerHTML='';
+                        table.rows[x].cells[i].appendChild(divElement);
+                        console.log(table.rows[x].cells[i].innerHTML);
+						
 
 	
 				}
@@ -179,16 +210,25 @@ $(function(){
 		for (i = 0; i < table.rows.length; i++) {
 			
 			for (j = 0; j < table.rows[i].cells.length; j++) {
-			
-				table.rows[i].cells[j].style = "";
-				table.rows[i].cells[j].classList.remove("highlight");
-			
+                //console.log(table.rows[i].cells[j].innerHTML);
+			    if(table.rows[i].cells[j].innerHTML === '<div class="highlight"><img src="../case1.png"></div>') {
+                    
+                    table.rows[i].cells[j].style = "";
+				    //table.rows[i].cells[j].classList.remove("highlight");
+                    table.rows[i].cells[j].innerHTML='';
+                    table.rows[i].cells[j].innerHTML='<img src="../case1.png">';
+                    console.log(table.rows[i].cells[j].innerHTML);
+			        console.log("i, j effacées : " + i + ", " +j);
+                   }    
+				
 			}
 			
 		}
 		
 	}
 	
+    
+        
 	//Détecter le clic sur une case et y positionner un joueur
 	$('.highlight').click(function(){		//TODO : APPLY FOR HIGHLIGHTED CELLS ONLY
 		
@@ -207,10 +247,13 @@ $(function(){
 		elementImage.src = "../joueur1.png";
 		table.rows[playerX].cells[playerY].innerHTML = '';
 		table.rows[playerX].cells[playerY].appendChild(elementImage);
-		
+		//clearHighlights();
 		highlight(playerX, playerY);
 		
 	})
+       
+    
+    
     
    
 
