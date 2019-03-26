@@ -1,21 +1,17 @@
 $(function(){
    
 // Variables globales
-//var attaque = true;
+
 var gagne = true;
 var trouve = false;
 var i = 0;
 var j = 0;
 var nbre_tour=0;
-//var partie = "en cours";
-//var joueur = "Joueur1";
 let imax = 9;
 let jmax = 9; 
-//var N = 1;
 var playerX=0;
 var playerY=0;
-//var clique = true;
-var clear = false;
+
 
 
 class Arme {
@@ -86,8 +82,28 @@ class Joueur {
                         console.log(table.rows[i].cells[j].innerHTML);
                             
                     }
-                    else if (table.rows[i].cells[j].innerHTML !== '<img src="../case1.png">')
-                    {
+                    else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
+                        collisionArme(i,j,'arme1');
+                        this.arme.nom = arme1.nom;
+                        trouve = true;
+                        }
+                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
+                        collisionArme(i,j,'arme2');
+                        this.arme.nom = arme2.nom;
+                        trouve = true;  
+                        }
+                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
+                        collisionArme(i,j,'arme3');
+                        this.arme.nom = arme3.nom;
+                        trouve = true;  
+                        }
+                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
+                        collisionArme(i,j,'arme4');
+                        this.arme.nom = arme4.nom;
+                        trouve = true;   
+                        }
+						
+                    else {
                         trouve = true;
                     }
             }
@@ -195,7 +211,7 @@ function highlight(n) {
             
         var newX = $(this).closest("tr").index();
         var newY = $(this).closest("td").index();
-        //alert("tu as cliqué sur la case : " + newX + ", " + newY);
+        
 
         var elementImage = document.createElement("img");
         elementImage.src = "../case1.png";
@@ -213,7 +229,8 @@ function highlight(n) {
                                 
         })
 }
-    
+ 
+ //on annule les cases de classe 'hightlight' - appelée en debut de deplaceJoueur()
  function clearHighlight() {
         for (i=0; i <imax; i++) {
             for (j=0; j <jmax; j++) {
@@ -229,9 +246,45 @@ function highlight(n) {
         
     }  
 
-/*function detecteCombat() {
+function collisionArme(i_Arme,j_Arme,nom_Arme) {
+    table.rows[i_Arme].cells[j_Arme].style.border = "3px solid black";
+    var divElement = document.createElement("div");
+    divElement.classList.add("highlight");
+    divElement.innerHTML = '<img src="../' + nom_Arme + '.png">';
+    table.rows[i_Arme].cells[j_Arme].innerHTML='';
+    table.rows[i_Arme].cells[j_Arme].appendChild(divElement);
+}    
+
+function detecteCombat(joueur1, joueur2) {
+    if(joueur1.i1 === joueur2.i1) {
+        if(Math.abs(joueur1.j1-joueur2.j1) === 1) {
+           return true;
+           }
+       
+       } else if(joueur1.j1 === joueur2.j1) {
+           if(Math.abs(joueur1.i1-joueur2.i1) === 1) {
+           return true;
+           }
+        
+    }
     
-}*/
+}
+//joueur1 attaque jooueur2
+function attaqueJoueur(joueur1, joueur2) {
+    rep_attaque = prompt(joueur2.nom + " souhaitez-vous attaquer(A) ou défenfre(D) ? :");
+    if(rep_attaque==='A') {
+        joueur2.vie = joueur2.vie - joueur1.arme.degat;
+    } else {
+        joueur2.vie = joueur2.vie - (joueur1.arme.degat)/2;
+    }
+    
+              
+  if (joueur2.vie <=0) {
+      gagne = false;
+      console.log("joueur1 a gagné");
+      console.log("il a gagné en : " + nbre_tour);
+  } 
+}
 
     
 // Création du tableau HTML
@@ -261,8 +314,7 @@ function placeJoueur(joueur){
             trouve = true;
             } 
            
-        }
-    //trouve = false;   
+        }   
    
         
         
@@ -385,20 +437,19 @@ arme2 = new Arme('Arme2', 5);
 arme3 = new Arme('Arme3', 15);
 arme4 = new Arme('Arme4', 20);
 
-joueur1 = new Joueur('Joueur1', 100, arme1);
-joueur2 = new Joueur('Joueur2', 100, arme2);
+joueur1 = new Joueur('Joueur1', 100,arme1);
+joueur2 = new Joueur('Joueur2', 100,arme1);
 
 
-//joueurBoard = new Joueur('Joueur1', 100, 'arme1');
 joueur1.repereJoueur(1);
 joueur2.repereJoueur(2);
 /* 
 programme principal
 */
-    while(gagne) {
+    while(gagne === true) {
         
           if(nbre_tour % 2 === 0) {
-              //joueur1.repereJoueur(1);
+              
               joueur1.deplaceJoueur();
               playerX = joueur1.i1;
               playerY = joueur1.j1;
@@ -418,7 +469,6 @@ programme principal
               
           }else {
               
-              //joueur2.repereJoueur(2);
               joueur2.deplaceJoueur();
               playerX = joueur2.i1;
               playerY = joueur2.j1;
@@ -436,23 +486,11 @@ programme principal
              
           }
           
-          //joueur1.decrire();
-          //joueur2.decrire();
+          
           nbre_tour++;
           }
 
-
-        /*joueurBoard.repereJoueur(N);
-   
-        joueurBoard.decrire();
-        
-        
-        joueurBoard.deplaceJoueur(N);*/
-     
-        
-
-    
-    
+ 
 /* 
 Fin programme principal
 */
