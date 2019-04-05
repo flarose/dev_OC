@@ -40,6 +40,8 @@ class Joueur {
 
                         this.i1 = i;
                         this.j1 = j;
+                        playerX = i;
+                        playerY = j;
                         trouve = true;
                         console.log("la valeur i de :" + this.i1);
 
@@ -85,25 +87,21 @@ class Joueur {
                     else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme1');
-                        this.arme.nom = arme1.nom;
                         trouve = true;
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme2');
-                        this.arme.nom = arme2.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme3');
-                        this.arme.nom = arme3.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme4');
-                        this.arme.nom = arme4.nom;
                         trouve = true;   
                         }
 						
@@ -138,25 +136,21 @@ class Joueur {
                 else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme1');
-                        this.arme.nom = arme1.nom;
                         trouve = true;
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme2');
-                        this.arme.nom = arme2.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme3');
-                        this.arme.nom = arme3.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme4');
-                        this.arme.nom = arme4.nom;
                         trouve = true;   
                         }
 						
@@ -193,25 +187,21 @@ class Joueur {
                 else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme1');
-                        this.arme.nom = arme1.nom;
                         trouve = true;
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme2');
-                        this.arme.nom = arme2.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme3');
-                        this.arme.nom = arme3.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme4');
-                        this.arme.nom = arme4.nom;
                         trouve = true;   
                         }
 						
@@ -247,25 +237,21 @@ class Joueur {
                 else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme1');
-                        this.arme.nom = arme1.nom;
                         trouve = true;
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme2');
-                        this.arme.nom = arme2.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme3');
-                        this.arme.nom = arme3.nom;
                         trouve = true;  
                         }
                     else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
                         console.log("indices en surbrillance i, j : " + i + "," +j);
                         collisionArme(i,j,'arme4');
-                        this.arme.nom = arme4.nom;
                         trouve = true;   
                         }
 						
@@ -292,25 +278,87 @@ function highlight(n) {
         var newX = $(this).closest("tr").index();
         var newY = $(this).closest("td").index();
         
-
+        //console.log(table.rows[playerX].cells[playerY].innerHTML);
         var elementImage = document.createElement("img");
         elementImage.src = "../case1.png";
         table.rows[playerX].cells[playerY].innerHTML = '';
         table.rows[playerX].cells[playerY].appendChild(elementImage);
-        console.log("Ancienne position du Joueur: " + table.rows[playerX].cells[playerY].innerHTML);
+        console.log("Ancienne position du Joueur: " + playerX + " " + playerY + " : " + table.rows[playerX].cells[playerY].innerHTML);
          
         playerX = newX;
         playerY = newY;
+        console.log(table.rows[playerX].cells[playerY].innerHTML);
+        if (table.rows[playerX].cells[playerY].innerHTML === '<img src="../arme1.png">' || table.rows[playerX].cells[playerY].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
+            if(n===1){
+                console.log(joueur1.arme.degat);
+                joueur1.arme = arme1;
+                console.log(joueur1.arme.degat);
+            }
+            if(n===2){
+                joueur2.arme = arme1;
+            }
+            
+        } else if (table.rows[playerX].cells[playerY].innerHTML === '<img src="../arme2.png">' || table.rows[playerX].cells[playerY].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
+            if(n===1){
+                console.log(joueur1.arme.degat);
+                joueur1.arme = arme2;
+                console.log(joueur1.arme.degat);
+            }
+            if(n===2){
+                joueur2.arme = arme2;
+            }
+            
 
+        } else if (table.rows[playerX].cells[playerY].innerHTML === '<img src="../arme3.png">' || table.rows[playerX].cells[playerY].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
+            if(n===1){
+                console.log(joueur1.arme.degat);
+                joueur1.arme = arme3;
+                console.log(joueur1.arme.degat);
+            }
+            if(n===2){
+                joueur2.arme = arme3;
+            }
+            
+            
+        } else if (table.rows[playerX].cells[playerY].innerHTML === '<img src="../arme4.png">' || table.rows[playerX].cells[playerY].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
+            if(n===1){
+                console.log(joueur1.arme.degat);
+                joueur1.arme = arme4;
+                console.log(joueur1.arme.degat);
+            }
+            if(n===2){
+                joueur2.arme = arme4;
+            }
+            
+            
+        }
+         
         var elementImage = document.createElement("img");
         elementImage.src = "../joueur" + n + ".png";
         table.rows[playerX].cells[playerY].innerHTML = '';
         table.rows[playerX].cells[playerY].appendChild(elementImage);
-        console.log("Nouvelle position du Joueur: " + table.rows[playerX].cells[playerY].innerHTML);
-        clic = true;  
+        
+         console.log("Nouvelle position du Joueur: " + table.rows[playerX].cells[playerY].innerHTML);
         console.log(clic);
+        clic = true; 
+        console.log(clic);
+        for (i = 0; i < table.rows.length; i++) {
+            for (j = 0; j < table.rows[i].cells.length; j++) {
+                console.log(table.rows[i].cells[j].innerHTML);
+            }
+        }
+        //clearHighlight();
+        console.log("apres clearHighlight() : ");
+        for (i = 0; i < table.rows.length; i++) {
+            for (j = 0; j < table.rows[i].cells.length; j++) {
+                console.log(table.rows[i].cells[j].innerHTML);
+            }
+        }
+        
         })
-        console.log(clic);
+    
+        
+        
 }
  
  //on annule les cases de classe 'hightlight' - appelée en debut de deplaceJoueur()
@@ -319,7 +367,12 @@ function highlight(n) {
             for (j=0; j <jmax; j++) {
                
                    table.rows[i].cells[j].style.border = "";
-                   table.rows[i].cells[j].classList.remove("highlight"); 
+                   table.rows[i].cells[j].classList.remove("highlight");
+                  /* var divElement = document.createElement("div");
+                   divElement.innerHTML = table.rows[i].cells[j].innerHTML;
+                   divElement.classList.remove("highlight"); 
+                   table.rows[i].cells[j].innerHTML ='';
+                   table.rows[i].cells[j].appendChild(divElement);*/
                    
                 
                    
@@ -336,6 +389,7 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
     divElement.innerHTML = '<img src="../' + nom_Arme + '.png">';
     table.rows[i_Arme].cells[j_Arme].innerHTML='';
     table.rows[i_Arme].cells[j_Arme].appendChild(divElement);
+    
 }    
 
 function detecteCombat(joueur1, joueur2) {
@@ -521,11 +575,11 @@ arme3 = new Arme('Arme3', 15);
 arme4 = new Arme('Arme4', 20);
 
 joueur1 = new Joueur('Joueur1', 100,arme1);
-joueur2 = new Joueur('Joueur2', 100,arme1);
+//joueur2 = new Joueur('Joueur2', 100,arme1);
 
 
 joueur1.repereJoueur(1);
-joueur2.repereJoueur(2);
+//joueur2.repereJoueur(2);
 /* 
 programme principal
 */
@@ -535,12 +589,13 @@ while(gagne === true && clic === true) {
       clic = false;
       joueur1.deplaceJoueur();
       highlight(1);
-      if(clic === true) {
+      gagne = false;
+      /*if(clic === true) {
           clic = false;
           joueur2.deplaceJoueur();
           highlight(2);
           gagne = false;
-      }
+      }*/
       
       /*if(nbre_tour % 2 === 0) {
           // simulation : le joueur 1 attaque
