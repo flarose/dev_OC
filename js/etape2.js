@@ -273,6 +273,7 @@ class Joueur {
     
 function highlight(n) {
      clic = false;
+    
      $('.highlight').on('click', function() {
             
         var newX = $(this).closest("tr").index();
@@ -342,23 +343,12 @@ function highlight(n) {
         console.log(clic);
         clic = true; 
         console.log(clic);
-        for (i = 0; i < table.rows.length; i++) {
-            for (j = 0; j < table.rows[i].cells.length; j++) {
-                console.log(table.rows[i].cells[j].innerHTML);
-            }
-        }
-        //clearHighlight();
-        console.log("apres clearHighlight() : ");
-        for (i = 0; i < table.rows.length; i++) {
-            for (j = 0; j < table.rows[i].cells.length; j++) {
-                console.log(table.rows[i].cells[j].innerHTML);
-            }
-        }
+        
+        clearHighlight();
         
         })
-    
         
-        
+         
 }
  
  //on annule les cases de classe 'hightlight' - appelée en debut de deplaceJoueur()
@@ -368,13 +358,26 @@ function highlight(n) {
                
                    table.rows[i].cells[j].style.border = "";
                    table.rows[i].cells[j].classList.remove("highlight");
-                  /* var divElement = document.createElement("div");
-                   divElement.innerHTML = table.rows[i].cells[j].innerHTML;
-                   divElement.classList.remove("highlight"); 
-                   table.rows[i].cells[j].innerHTML ='';
-                   table.rows[i].cells[j].appendChild(divElement);*/
-                   
-                
+                   if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme4.png"></div>') {
+                       console.log("indicesi,j apres clearhighlight() : " + i +", " + j);
+                       table.rows[i].cells[j].innerHTML ='<img src="../arme4.png">';
+                       console.log(table.rows[i].cells[j].innerHTML);
+                      } else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme3.png"></div>') {
+                               table.rows[i].cells[j].innerHTML ='<img src="../arme3.png">'; 
+                               console.log(table.rows[i].cells[j].innerHTML);
+                                }
+                        else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme2.png"></div>') {
+                                table.rows[i].cells[j].innerHTML ='<img src="../arme2.png">';
+                                console.log(table.rows[i].cells[j].innerHTML);
+                                }
+                        else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme1.png"></div>') {
+                                table.rows[i].cells[j].innerHTML ='<img src="../arme1.png">';
+                                console.log(table.rows[i].cells[j].innerHTML);
+                                }
+                        else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../case1.png"></div>') {
+                                table.rows[i].cells[j].innerHTML ='<img src="../case1.png">';
+                                console.log(table.rows[i].cells[j].innerHTML);
+                                } else {console.log(table.rows[i].cells[j].innerHTML)}
                    
             }
         }
@@ -589,22 +592,27 @@ while(gagne === true && clic === true) {
       clic = false;
       joueur1.deplaceJoueur();
       highlight(1);
-      gagne = false;
-      /*if(clic === true) {
-          clic = false;
-          joueur2.deplaceJoueur();
-          highlight(2);
-          gagne = false;
-      }*/
       
+    
       /*if(nbre_tour % 2 === 0) {
           // simulation : le joueur 1 attaque
-          attaqueJoueur(joueur1, joueur2);
+		  deplaceJoueur(); inclu clearHighlight()
+		  highlight(); TODO : CLIC À GÉRER
+		  detecteCombat(); TODO : PROMPT À GÉRER
+			=> IF TRUE attaqueJoueur(joueur1, joueur2); inclu la défense
       }else {
-          //simulation : le joueur2 attaque
-          attaqueJoueur(joueur2, joueur1);
+          // simulation : le joueur 2 attaque
+		  deplaceJoueur(); inclu clearHighlight()
+		  highlight(); TODO : CLIC À GÉRER
+		  detecteCombat(); TODO : PROMPT À GÉRER
+			=> IF TRUE attaqueJoueur(joueur2, joueur1); inclu la défense
       }
       nbre_tour++;*/
+    
+      }
+
+ 
+/* 
       }
 
  
