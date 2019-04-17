@@ -45,11 +45,9 @@ class Joueur {
                         if(n===1) {
                             playerX1 = i;
                             playerY1 = j;
-                            $("#tourRole").html("joueur1");
                         }else if(n===2) {
                             playerX2 = i;
                             playerY2 = j;
-                             $("#tourRole").html("joueur2");
                         }
                         
                         trouve = true;
@@ -342,13 +340,16 @@ function highlight(n) {
                  console.log("Nouvelle position du Joueur1: " + table.rows[playerX1].cells[playerY1].innerHTML);
                     
                  //detecteCombat()
-                if (detecteCombat() === true) {
-                     //alert("combat !");
-                    attaqueJoueur(joueur1);
-                 }
+                /*if(detecteCombat() === true) {
+                     while(gagne===true) {
+                       nbre_tour++;
+                       attaqueJoueur(joueur1,joueur2);
+                       attaqueJoueur(joueur2,joueur1);
+                    }
+                }*/
                 
-                /*joueur2.deplaceJoueur();
-                highlight(2);*/
+                joueur2.deplaceJoueur();
+                highlight(2);
                 
 
 
@@ -404,13 +405,17 @@ function highlight(n) {
                  console.log("Nouvelle position du Joueur2: " + table.rows[playerX2].cells[playerY2].innerHTML);
                 
                  //detecteCombat()
-                 if (detecteCombat() === true) {
-                     //alert("combat !");
-                     attaqueJoueur(joueur2);
-                 }
+                /*if(detecteCombat() === true) {
+                    while(gagne===true) {
+                       nbre_tour++;
+                       attaqueJoueur(joueur2,joueur1);
+                       attaqueJoueur(joueur1,joueur2);
+                    }
+                    
+                }*/
         
-                /*joueur1.deplaceJoueur();
-                highlight(1);*/
+                joueur1.deplaceJoueur();
+                highlight(1);
                 
 
 
@@ -422,17 +427,14 @@ function highlight(n) {
                 break;
 
                 }
-                if(gagne===true) {
-                    if(n===1) {
-                        joueur2.repereJoueur(2);
-                        joueur2.deplaceJoueur();
-                        highlight(2);
-                    } else if(n===2) {
-                        joueur1.repereJoueur(1);
-                        joueur1.deplaceJoueur();
-                        highlight(1);
-                    }
-                }
+            
+                /*if(n===1) {
+                    joueur2.deplaceJoueur();
+                    highlight(2);
+                } else if(n===2) {
+                    joueur1.deplaceJoueur();
+                    highlight(1);
+                }*/
                 })
         
        
@@ -488,13 +490,11 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
 function detecteCombat(joueur1, joueur2) {
     if(playerX1 === playerX2) {
         if(Math.abs(playerY1-playerY2) === 1) {
-           //alert("combat !");
            return true;
            }
        
        } else if(playerY1 === playerY2) {
            if(Math.abs(playerX1-playerX2) === 1) {
-           //alert("combat !");
            return true;
            }
         
@@ -502,49 +502,21 @@ function detecteCombat(joueur1, joueur2) {
     
 }
 //joueur1 attaque jooueur2
-function attaqueJoueur(joueur_Attaque) {
-    while (gagne===true) {
-    switch(joueur_Attaque) {
-           case joueur1 :
-            rep_attaque = prompt(joueur_Attaque.nom + " :(A)ttaquer ou (D)éfendre ?");
-            if(rep_attaque==='A' || rep_attaque==='a') {
-                joueur2.vie = joueur2.vie - joueur1.arme.degat;
-
-            } else if((rep_attaque==='D' || rep_attaque==='d')) {
-                joueur2.vie = joueur2.vie - (joueur1.arme.degat)/2;
-
-            }
-           
-           case joueur2 :
-            rep_attaque = prompt(joueur_Attaque.nom + " :(A)ttaquer ou (D)éfendre ?");
-            if(rep_attaque==='A' || rep_attaque==='a') {
-                joueur1.vie = joueur1.vie - joueur2.arme.degat;
-
-            } else if((rep_attaque==='D' || rep_attaque==='d')) {
-                joueur1.vie = joueur1.vie - (joueur2.arme.degat)/2;
-
-            }
-           
-           }
-        
-    if(joueur_Attaque===joueur1) {
-        joueur_Attaque = joueur2;
-    } else if(joueur_Attaque===joueur2) {
-        joueur_Attaque = joueur1;
+function attaqueJoueur(joueur1, joueur2) {
+    rep_attaque = prompt("(A)ttaquer ou (D)éfendre ?");
+    //console.log("choix de l'attaque du " + joueur1.nom + " : " + rep_attaque);
+    if(rep_attaque==='A' || rep_attaque==='a') {
+        joueur2.vie = joueur2.vie - joueur1.arme.degat;
+    } else if((rep_attaque==='D' || rep_attaque==='d')) {
+        joueur2.vie = joueur2.vie - (joueur1.arme.degat)/2;
     }
     
-        
-     nbre_tour++;              
-      if (joueur2.vie <=0) {
-          gagne = false;
-          console.log(joueur1.nom + " a gagné");
-          console.log("il a gagné en : " + nbre_tour + " coups.");
-      } else if (joueur1.vie <=0) {
-          gagne = false;
-          console.log(joueur2.nom + " a gagné");
-          console.log("il a gagné en : " + nbre_tour + " coups.");
-      } 
-}
+              
+  if (joueur2.vie <=0) {
+      gagne = false;
+      //console.log(joueur1.nom + " a gagné");
+      console.log("il a gagné en : " + nbre_tour + " coups.");
+  } 
 }
 
     
@@ -737,6 +709,7 @@ programme principal
  
 /* 
       }
+
  
 /* 
 Fin programme principal
