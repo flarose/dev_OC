@@ -14,7 +14,7 @@ var playerY1=0;
 var playerX2=0;
 var playerY2=0;
 var rep_attaque = "";
-//var clic = true;
+
 
 class Arme {
     constructor(nom, degat) {
@@ -45,11 +45,11 @@ class Joueur {
                         if(n===1) {
                             playerX1 = i;
                             playerY1 = j;
-                            $("#tourRole").html("joueur1");
+                            
                         }else if(n===2) {
                             playerX2 = i;
                             playerY2 = j;
-                             $("#tourRole").html("joueur2");
+                            
                         }
                         
                         trouve = true;
@@ -79,45 +79,41 @@ class Joueur {
             if(trouve === false) {
                 if (i<0) {
                     trouve = true;
-                    } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
+                    } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
                             
                         //Alors mettre en surbrillance
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-						table.rows[i].cells[j].style.border = "3px solid black";
-                        var divElement = document.createElement("div");
-                        divElement.classList.add("highlight");
-                        divElement.innerHTML = '<img src="../case1.png">';
-                        //console.log(divElement.innerHTML);
-                        table.rows[i].cells[j].innerHTML='';
-                        table.rows[i].cells[j].appendChild(divElement);
-                        
-                        console.log(table.rows[i].cells[j].innerHTML);
+                        switch (table.rows[i].cells[j].innerHTML) {
+                            case '<img src="../case1.png">' :
+                                table.rows[i].cells[j].style.border = "3px solid black";
+                                var divElement = document.createElement("div");
+                                divElement.classList.add("highlight");
+                                divElement.innerHTML = '<img src="../case1.png">';
+                                table.rows[i].cells[j].innerHTML='';
+                                table.rows[i].cells[j].appendChild(divElement);
+                                break;
+                                
+                            case '<img src="../arme1.png">' :
+                                collisionArme(i,j,'arme1');
+                                break;
+                            case '<img src="../arme2.png">' :
+                                collisionArme(i,j,'arme2');
+                                break;
+                            case '<img src="../arme3.png">' :
+                                collisionArme(i,j,'arme3');
+                                break;
+                            case '<img src="../arme4.png">' :
+                                collisionArme(i,j,'arme4');
+                                break;
+                            default :
+                                trouve = true;
+                                break;
+                                }
+                      
                             
-                    }
-                    else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme1');
-                        trouve = true;
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme2');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme3');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme4');
-                        trouve = true;   
-                        }
-						
-                    else {
+                    } else {
                         trouve = true;
                     }
+                    
             }
 
     }
@@ -129,44 +125,41 @@ class Joueur {
         if(trouve === false) {
             if (i>(imax-1)) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                       //Alors mettre en surbrillance
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-						table.rows[i].cells[j].style.border = "3px solid black";
-                        var divElement = document.createElement("div");
-                        divElement.classList.add("highlight");
-                        divElement.innerHTML = '<img src="../case1.png">';
-                        //console.log(divElement.innerHTML);
-                        table.rows[i].cells[j].innerHTML='';
-                        table.rows[i].cells[j].appendChild(divElement);
-                        
-                        console.log(table.rows[i].cells[j].innerHTML); 
-                         
-                }
-                else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme1');
-                        trouve = true;
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme2');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme3');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme4');
-                        trouve = true;   
-                        }
-						
-                    else {
+                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
+                            
+                        //Alors mettre en surbrillance
+                        switch (table.rows[i].cells[j].innerHTML) {
+                            case '<img src="../case1.png">' :
+                                table.rows[i].cells[j].style.border = "3px solid black";
+                                var divElement = document.createElement("div");
+                                divElement.classList.add("highlight");
+                                divElement.innerHTML = '<img src="../case1.png">';
+                                table.rows[i].cells[j].innerHTML='';
+                                table.rows[i].cells[j].appendChild(divElement);
+                                break;
+                                
+                            case '<img src="../arme1.png">' :
+                                collisionArme(i,j,'arme1');
+                                break;
+                            case '<img src="../arme2.png">' :
+                                collisionArme(i,j,'arme2');
+                                break;
+                            case '<img src="../arme3.png">' :
+                                collisionArme(i,j,'arme3');
+                                break;
+                            case '<img src="../arme4.png">' :
+                                collisionArme(i,j,'arme4');
+                                break;
+                            default :
+                                trouve = true;
+                                break;
+                                }
+                      
+                            
+                    } else {
                         trouve = true;
                     }
+                
         }
     }
     
@@ -179,45 +172,41 @@ class Joueur {
        if(trouve === false) {
             if (j<0) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                       //Alors mettre en surbrillance
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-						table.rows[i].cells[j].style.border = "3px solid black";
-                        var divElement = document.createElement("div");
-                        divElement.classList.add("highlight");
-                        divElement.innerHTML = '<img src="../case1.png">';
-                        //console.log(divElement.innerHTML);
-                        table.rows[i].cells[j].innerHTML='';
-                        table.rows[i].cells[j].appendChild(divElement);
-                        
-                        console.log(table.rows[i].cells[j].innerHTML); 
-                        
-                        
-                }
-                else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme1');
-                        trouve = true;
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme2');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme3');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme4');
-                        trouve = true;   
-                        }
-						
-                    else {
+                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
+                            
+                        //Alors mettre en surbrillance
+                        switch (table.rows[i].cells[j].innerHTML) {
+                            case '<img src="../case1.png">' :
+                                table.rows[i].cells[j].style.border = "3px solid black";
+                                var divElement = document.createElement("div");
+                                divElement.classList.add("highlight");
+                                divElement.innerHTML = '<img src="../case1.png">';
+                                table.rows[i].cells[j].innerHTML='';
+                                table.rows[i].cells[j].appendChild(divElement);
+                                break;
+                                
+                            case '<img src="../arme1.png">' :
+                                collisionArme(i,j,'arme1');
+                                break;
+                            case '<img src="../arme2.png">' :
+                                collisionArme(i,j,'arme2');
+                                break;
+                            case '<img src="../arme3.png">' :
+                                collisionArme(i,j,'arme3');
+                                break;
+                            case '<img src="../arme4.png">' :
+                                collisionArme(i,j,'arme4');
+                                break;
+                            default :
+                                trouve = true;
+                                break;
+                                }
+                      
+                            
+                    } else {
                         trouve = true;
                     }
+                
         }
     }
     
@@ -230,44 +219,41 @@ class Joueur {
         if(trouve === false) {
             if (j>(jmax-1)) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">') {
-                       //Alors mettre en surbrillance
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-						table.rows[i].cells[j].style.border = "3px solid black";
-                        var divElement = document.createElement("div");
-                        divElement.classList.add("highlight");
-                        divElement.innerHTML = '<img src="../case1.png">';
-                        //console.log(divElement.innerHTML);
-                        table.rows[i].cells[j].innerHTML='';
-                        table.rows[i].cells[j].appendChild(divElement);
-                        
-                        console.log(table.rows[i].cells[j].innerHTML);
-                        
-                }
-                else if (table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme1');
-                        trouve = true;
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme2');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme3');
-                        trouve = true;  
-                        }
-                    else if(table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                        console.log("indices en surbrillance i, j : " + i + "," +j);
-                        collisionArme(i,j,'arme4');
-                        trouve = true;   
-                        }
-						
-                    else {
+                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
+                            
+                        //Alors mettre en surbrillance
+                        switch (table.rows[i].cells[j].innerHTML) {
+                            case '<img src="../case1.png">' :
+                                table.rows[i].cells[j].style.border = "3px solid black";
+                                var divElement = document.createElement("div");
+                                divElement.classList.add("highlight");
+                                divElement.innerHTML = '<img src="../case1.png">';
+                                table.rows[i].cells[j].innerHTML='';
+                                table.rows[i].cells[j].appendChild(divElement);
+                                break;
+                                
+                            case '<img src="../arme1.png">' :
+                                collisionArme(i,j,'arme1');
+                                break;
+                            case '<img src="../arme2.png">' :
+                                collisionArme(i,j,'arme2');
+                                break;
+                            case '<img src="../arme3.png">' :
+                                collisionArme(i,j,'arme3');
+                                break;
+                            case '<img src="../arme4.png">' :
+                                collisionArme(i,j,'arme4');
+                                break;
+                            default :
+                                trouve = true;
+                                break;
+                                }
+                      
+                            
+                    } else {
                         trouve = true;
                     }
+                
         }
     }
        
@@ -347,12 +333,6 @@ function highlight(n) {
                     attaqueJoueur(joueur1);
                  }
                 
-                /*joueur2.deplaceJoueur();
-                highlight(2);*/
-                
-
-
-                //clearHighlight();
                 break;
                case 2 : 
                 
@@ -369,26 +349,26 @@ function highlight(n) {
                 playerY2 = newY;
 
                 if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme1.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
-                    
+                    console.log(joueur1.arme.degat);
                     joueur2.arme = arme1;
-                    
+                    console.log(joueur1.arme.degat);
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme2.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
-                   
+                    console.log(joueur1.arme.degat);
                     joueur2.arme = arme2;
-                    
+                    console.log(joueur1.arme.degat);
 
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme3.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
-                    
+                    console.log(joueur1.arme.degat);
                     joueur2.arme = arme3;
-                    
+                    console.log(joueur1.arme.degat);
 
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme4.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
-                   
+                    console.log(joueur1.arme.degat);
                     joueur2.arme = arme4;
-                    
+                    console.log(joueur1.arme.degat);
 
 
                 }
@@ -409,25 +389,19 @@ function highlight(n) {
                      attaqueJoueur(joueur2);
                  }
         
-                /*joueur1.deplaceJoueur();
-                highlight(1);*/
-                
-
-
-                //clearHighlight();
-                
-                break;
-                
-               default :
-                break;
+                 break;
+                default :
+                 break;
 
                 }
                 if(gagne===true) {
                     if(n===1) {
+                        $("#tourRole").html("joueur2");
                         joueur2.repereJoueur(2);
                         joueur2.deplaceJoueur();
                         highlight(2);
                     } else if(n===2) {
+                        $("#tourRole").html("joueur1");
                         joueur1.repereJoueur(1);
                         joueur1.deplaceJoueur();
                         highlight(1);
@@ -467,11 +441,10 @@ function highlight(n) {
                                 table.rows[i].cells[j].innerHTML ='<img src="../case1.png">';
                                 console.log(table.rows[i].cells[j].innerHTML);
                                 } 
-                        //else {console.log(table.rows[i].cells[j].innerHTML)}
+                        
                    
             }
         }
-        //return true;
         
     }  
 
@@ -488,13 +461,11 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
 function detecteCombat(joueur1, joueur2) {
     if(playerX1 === playerX2) {
         if(Math.abs(playerY1-playerY2) === 1) {
-           //alert("combat !");
            return true;
            }
        
        } else if(playerY1 === playerY2) {
            if(Math.abs(playerX1-playerX2) === 1) {
-           //alert("combat !");
            return true;
            }
         
@@ -506,23 +477,35 @@ function attaqueJoueur(joueur_Attaque) {
     while (gagne===true) {
     switch(joueur_Attaque) {
            case joueur1 :
-            rep_attaque = prompt(joueur_Attaque.nom + " :(A)ttaquer ou (D)éfendre ?");
+            rep_attaque = prompt("joueur1 :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur2.vie = joueur2.vie - joueur1.arme.degat;
-
+                if(joueur2.vie !== 0) {
+                    alert("joueur2 : " + joueur2.vie + " points de vie.");
+                }
+                
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur2.vie = joueur2.vie - (joueur1.arme.degat)/2;
-
+                if(joueur2.vie !== 0) {
+                    alert("joueur2 : " + joueur2.vie + " points de vie.");
+                }
+                
             }
            
            case joueur2 :
-            rep_attaque = prompt(joueur_Attaque.nom + " :(A)ttaquer ou (D)éfendre ?");
+            rep_attaque = prompt("joueur2 :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur1.vie = joueur1.vie - joueur2.arme.degat;
-
+                if(joueur1.vie !== 0) {
+                   alert("joueur1 : " + joueur1.vie + " points de vie."); 
+                }
+                
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur1.vie = joueur1.vie - (joueur2.arme.degat)/2;
-
+                if(joueur1.vie !== 0) {
+                    alert("joueur1 : " + joueur1.vie + " points de vie.");
+                }
+                
             }
            
            }
@@ -707,40 +690,14 @@ joueur2.repereJoueur(2);
 /* 
 programme principal
 */
-//rep_attaque = prompt(joueur2.nom + " souhaitez-vous attaquer(A) ou défenfre(D) ? :");
-    
 
+    
+      $("#tourRole").html("joueur1");
       joueur1.deplaceJoueur();
       highlight(1);
       
     
-      //if(nbre_tour % 2 === 0) {
-          // simulation : le joueur 1 attaque
-		  //joueur1.deplaceJoueur(); //inclu clearHighlight()
-		 // highlight(1); //TODO : CLIC À GÉRER
-         // $('.highlight').off('click', highlight(1));
-		  //detecteCombat(); TODO : PROMPT À GÉRER
-          //=> IF TRUE attaqueJoueur(joueur1, joueur2); inclu la défense
-      //}else {
-          // simulation : le joueur 2 attaque
-		  //joueur2.deplaceJoueur(); //inclu clearHighlight()
-		  //highlight(2); //TODO : CLIC À GÉRER
-          //$('.highlight').off('click', highlight(2));
-		  //detecteCombat(); TODO : PROMPT À GÉRER
-          //=> IF TRUE attaqueJoueur(joueur2, joueur1); inclu la défense
-          //gagne=false;
-      //}
-     // nbre_tour++;
-    
-      
 
- 
-/* 
-      }
- 
-/* 
-Fin programme principal
-*/
     
     
 })
