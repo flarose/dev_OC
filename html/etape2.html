@@ -7,8 +7,11 @@
     
     <style>
         table {
+            position: relative;
             height: 400px;
             width: 400px;
+            top : 150px;
+            left: 0px;
             border:1px solid black;
         }
         table td {
@@ -18,13 +21,36 @@
         img {
             border:none;
         }
+        h1 {
+            position: absolute;
+            z-index: 10;
+            font-size: 1.5em;
+            height: 100px;
+            width: 650px;
+            line-height: 30px;
+        }
+        span {
+            
+            
+            text-decoration: underline; 
+        }
+        #tourRole {
+            position: relative;
+            top : 150px;
+        }
+        #arme {
+            
+            width: 30px;
+            height: 30px;
+            
+        }
     </style>
 </head>
 
 <body>
-    <h1>Etape finale du jeu de plate-forme : collision (prise d'1 arme), detection des combats, engager un combat </h1></br>
-    <span>Joueur en cours :</span>
-    <span id="tourRole">joueur1</span>
+    <h1><span>Jeu de combat</span> : joueur1 en rouge, joueur2 en bleu, <span>choisis</span> ton arme <img id="arme" src="../arme1.png"><img id="arme" src="../arme2.png"><img id="arme" src="../arme3.png"><img id="arme" src="../arme4.png"> (par d&eacute;faut tu possèdes l'arme1 -l'arme en vert-) ou engages un combat !</br> <span>Indice</span> : l'arme2 est moins puissante    :)</h1></br>
+    <!--<span>Joueur en cours :</span>-->
+    <span id="tourRole">joueur en cours: joueur1</span>
     
     
     <table id="tableau">

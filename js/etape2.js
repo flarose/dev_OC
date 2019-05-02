@@ -1,7 +1,6 @@
 $(function(){
    
 // Variables globales
-
 var gagne = true;
 var trouve = false;
 var i = 0;
@@ -15,7 +14,7 @@ var playerX2=0;
 var playerY2=0;
 var rep_attaque = "";
 
-
+//Definition de la classe Arme
 class Arme {
     constructor(nom, degat) {
         this.nom = nom;
@@ -266,7 +265,7 @@ class Joueur {
 } 
 
 
-    
+// on definit la fonction hightlight() du programme principal    
 function highlight(n) {
         
         $('.highlight').on('click', function(){
@@ -280,7 +279,7 @@ function highlight(n) {
                 elementImage.src = "../case1.png";
                 table.rows[playerX1].cells[playerY1].innerHTML = '';
                 table.rows[playerX1].cells[playerY1].appendChild(elementImage);
-                console.log("Ancienne position du Joueur1: " + playerX1 + " " + playerY1 + " : " + table.rows[playerX1].cells[playerY1].innerHTML);
+                
 
                 playerX1 = newX;
                 playerY1 = newY;
@@ -318,18 +317,17 @@ function highlight(n) {
                 }
 
                 var elementImage = document.createElement("img");
-                //elementImage.src = "../joueur" + n + ".png";
                 
                 elementImage.src = "../joueur1.png";
                 
                 table.rows[playerX1].cells[playerY1].innerHTML = '';
                 table.rows[playerX1].cells[playerY1].appendChild(elementImage);
 
-                 console.log("Nouvelle position du Joueur1: " + table.rows[playerX1].cells[playerY1].innerHTML);
+                 
                     
-                 //detecteCombat()
+                 //on detecte le combat
                 if (detecteCombat() === true) {
-                     //alert("combat !");
+                     
                     attaqueJoueur(joueur1);
                  }
                 
@@ -343,7 +341,7 @@ function highlight(n) {
                 elementImage.src = "../case1.png";
                 table.rows[playerX2].cells[playerY2].innerHTML = '';
                 table.rows[playerX2].cells[playerY2].appendChild(elementImage);
-                console.log("Ancienne position du Joueur2: " + playerX2 + " " + playerY2 + " : " + table.rows[playerX2].cells[playerY2].innerHTML);
+                
 
                 playerX2 = newX;
                 playerY2 = newY;
@@ -374,18 +372,17 @@ function highlight(n) {
                 }
 
                 var elementImage = document.createElement("img");
-                //elementImage.src = "../joueur" + n + ".png";
                 
                 elementImage.src = "../joueur2.png";
                 
                 table.rows[playerX2].cells[playerY2].innerHTML = '';
                 table.rows[playerX2].cells[playerY2].appendChild(elementImage);
 
-                 console.log("Nouvelle position du Joueur2: " + table.rows[playerX2].cells[playerY2].innerHTML);
+                 
                 
-                 //detecteCombat()
+                 //on detecte le combat
                  if (detecteCombat() === true) {
-                     //alert("combat !");
+                     
                      attaqueJoueur(joueur2);
                  }
         
@@ -396,12 +393,12 @@ function highlight(n) {
                 }
                 if(gagne===true) {
                     if(n===1) {
-                        $("#tourRole").html("joueur2");
+                        $("#tourRole").html("joueur en cours: joueur2");
                         joueur2.repereJoueur(2);
                         joueur2.deplaceJoueur();
                         highlight(2);
                     } else if(n===2) {
-                        $("#tourRole").html("joueur1");
+                        $("#tourRole").html("joueur en cours: joueur1");
                         joueur1.repereJoueur(1);
                         joueur1.deplaceJoueur();
                         highlight(1);
@@ -414,32 +411,34 @@ function highlight(n) {
          
 }
  
- //on annule les cases de classe 'hightlight' - appelée en debut de deplaceJoueur()
+
+
+//on definit ici des fonctions du prog principal
  function clearHighlight() {
         for (i=0; i <imax; i++) {
             for (j=0; j <jmax; j++) {
                
                    table.rows[i].cells[j].style.border = "";
-                   //table.rows[i].cells[j].classList.remove("highlight");
+                   
                    if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme4.png"></div>') {
-                       console.log("indicesi,j apres clearhighlight() : " + i +", " + j);
+                       
                        table.rows[i].cells[j].innerHTML ='<img src="../arme4.png">';
-                       console.log(table.rows[i].cells[j].innerHTML);
+                       
                       } else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme3.png"></div>') {
                                table.rows[i].cells[j].innerHTML ='<img src="../arme3.png">'; 
-                               console.log(table.rows[i].cells[j].innerHTML);
+                               
                                 }
                         else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme2.png"></div>') {
                                 table.rows[i].cells[j].innerHTML ='<img src="../arme2.png">';
-                                console.log(table.rows[i].cells[j].innerHTML);
+                                
                                 }
                         else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../arme1.png"></div>') {
                                 table.rows[i].cells[j].innerHTML ='<img src="../arme1.png">';
-                                console.log(table.rows[i].cells[j].innerHTML);
+                                
                                 }
                         else if(table.rows[i].cells[j].innerHTML==='<div class="highlight"><img src="../case1.png"></div>') {
                                 table.rows[i].cells[j].innerHTML ='<img src="../case1.png">';
-                                console.log(table.rows[i].cells[j].innerHTML);
+                                
                                 } 
                         
                    
@@ -472,38 +471,38 @@ function detecteCombat(joueur1, joueur2) {
     }
     
 }
-//joueur1 attaque jooueur2
+
 function attaqueJoueur(joueur_Attaque) {
     while (gagne===true) {
     switch(joueur_Attaque) {
            case joueur1 :
-            rep_attaque = prompt("joueur1 :(A)ttaquer ou (D)éfendre ?");
+            rep_attaque = prompt("Joueur1 attaque!... Joueur2(" + joueur2.vie + ") :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
-                joueur2.vie = joueur2.vie - joueur1.arme.degat;
+                joueur2.vie -= joueur1.arme.degat;
                 if(joueur2.vie !== 0) {
-                    alert("joueur2 : " + joueur2.vie + " points de vie.");
+                    alert("Joueur2, il  te reste : " + joueur2.vie + " points de vie.");
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
-                joueur2.vie = joueur2.vie - (joueur1.arme.degat)/2;
+                joueur2.vie -= (joueur1.arme.degat)/2;
                 if(joueur2.vie !== 0) {
-                    alert("joueur2 : " + joueur2.vie + " points de vie.");
+                    alert("Joueur2, il  te reste " + joueur2.vie + " points de vie.");
                 }
                 
             }
            
            case joueur2 :
-            rep_attaque = prompt("joueur2 :(A)ttaquer ou (D)éfendre ?");
+            rep_attaque = prompt("Joueur2 attaque!... Joueur1(" + joueur1.vie + ") :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
-                joueur1.vie = joueur1.vie - joueur2.arme.degat;
+                joueur1.vie -= joueur2.arme.degat;
                 if(joueur1.vie !== 0) {
-                   alert("joueur1 : " + joueur1.vie + " points de vie."); 
+                   alert("Joueur1, il te reste : " + joueur1.vie + " points de vie."); 
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
-                joueur1.vie = joueur1.vie - (joueur2.arme.degat)/2;
+                joueur1.vie -= (joueur2.arme.degat)/2;
                 if(joueur1.vie !== 0) {
-                    alert("joueur1 : " + joueur1.vie + " points de vie.");
+                    alert("Joueur1, il te reste : " + joueur1.vie + " points de vie.");
                 }
                 
             }
@@ -521,24 +520,29 @@ function attaqueJoueur(joueur_Attaque) {
       if (joueur2.vie <=0) {
           gagne = false;
           console.log(joueur1.nom + " a gagné");
+          alert(joueur1.nom + " a gagné");
           console.log("il a gagné en : " + nbre_tour + " coups.");
       } else if (joueur1.vie <=0) {
           gagne = false;
           console.log(joueur2.nom + " a gagné");
+          alert(joueur2.nom + " a gagné");
           console.log("il a gagné en : " + nbre_tour + " coups.");
       } 
 }
 }
-
+//FIN des fonctions du prog principal
+ 
+    
     
 // Création du tableau HTML
 var table = document.getElementById("tableau");
-
 for (i = 0; i < table.rows.length; i++) {
     for (j = 0; j < table.rows[i].cells.length; j++) {
         table.rows[i].cells[j].innerHTML = 0;
     }
 }
+ 
+    
     
 //////////////////////////////////////////////
 //Definition des fonctions pour creer la carte
@@ -583,8 +587,7 @@ function placeArme(arme){
 //////////////////////////////////////////////////
 //Fin Definition des fonctions pour creer la carte
  
-    
-    
+      
     
 ////////////////////////////////////////////////////////////////////////////  
 // Creation de la carte
@@ -616,7 +619,7 @@ for (i = 0; i < table.rows.length; i++) {
     for (j = 0; j < table.rows[i].cells.length; j++) {
         var elementImage = document.createElement("img");
         elementTable = table.rows[i].cells[j].innerHTML;
-        //alert(elementTable);
+        
         switch (elementTable) {
             case "0" :
                 elementImage.src = "../case1.png";
@@ -692,7 +695,7 @@ programme principal
 */
 
     
-      $("#tourRole").html("joueur1");
+      $("#tourRole").html("joueur en cours: joueur1");
       joueur1.deplaceJoueur();
       highlight(1);
       
