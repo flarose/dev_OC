@@ -52,9 +52,7 @@ class Joueur {
                         }
                         
                         trouve = true;
-                        console.log("la valeur i de :" + this.i1);
-
-                        console.log("la valeur j de :" + this.j1);
+                        
 
                         }
                 }
@@ -65,6 +63,8 @@ class Joueur {
     
     decrire() {
         console.log(this.nom + ' a ' + this.vie + ' points de vie, il possede le ' + this.arme.nom);
+        console.log("la valeur i de :" + this.i1);
+        console.log("la valeur j de :" + this.j1);
     }
     
 
@@ -457,7 +457,7 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
     
 }    
 
-function detecteCombat(joueur1, joueur2) {
+function detecteCombat() {
     if(playerX1 === playerX2) {
         if(Math.abs(playerY1-playerY2) === 1) {
            return true;
@@ -479,41 +479,38 @@ function attaqueJoueur(joueur_Attaque) {
             rep_attaque = prompt("Joueur1 attaque!... Joueur2(" + joueur2.vie + ") :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur2.vie -= joueur1.arme.degat;
-                if(joueur2.vie !== 0) {
+                if(joueur2.vie > 0) {
                     alert("Joueur2, il  te reste : " + joueur2.vie + " points de vie.");
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur2.vie -= (joueur1.arme.degat)/2;
-                if(joueur2.vie !== 0) {
+                if(joueur2.vie > 0) {
                     alert("Joueur2, il  te reste " + joueur2.vie + " points de vie.");
                 }
                 
             }
-           
+            
+           joueur_Attaque = joueur2;
            case joueur2 :
             rep_attaque = prompt("Joueur2 attaque!... Joueur1(" + joueur1.vie + ") :(A)ttaquer ou (D)éfendre ?");
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur1.vie -= joueur2.arme.degat;
-                if(joueur1.vie !== 0) {
+                if(joueur1.vie > 0) {
                    alert("Joueur1, il te reste : " + joueur1.vie + " points de vie."); 
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur1.vie -= (joueur2.arme.degat)/2;
-                if(joueur1.vie !== 0) {
+                if(joueur1.vie > 0) {
                     alert("Joueur1, il te reste : " + joueur1.vie + " points de vie.");
                 }
                 
             }
+            joueur_Attaque = joueur1;
            
            }
-        
-    if(joueur_Attaque===joueur1) {
-        joueur_Attaque = joueur2;
-    } else if(joueur_Attaque===joueur2) {
-        joueur_Attaque = joueur1;
-    }
+    
     
         
      nbre_tour++;              
@@ -689,12 +686,16 @@ joueur2 = new Joueur('Joueur2', 100,arme1);
 
 
 joueur1.repereJoueur(1);
+joueur1.decrire();
 joueur2.repereJoueur(2);
+joueur2.decrire();
 /* 
 programme principal
 */
-
-    
+      if (detecteCombat() === true) {
+            console.log("relancer la partie.");
+                 }
+                
       $("#tourRole").html("joueur en cours: joueur1");
       joueur1.deplaceJoueur();
       highlight(1);
