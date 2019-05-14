@@ -1,4 +1,6 @@
 $(function(){
+	
+//TODO 9. Si un joueur passe sur une case contenant une arme, il laisse son arme actuelle sur place et la remplace par la nouvelle.
    
 // Variables globales
 var gagne = true;
@@ -8,6 +10,7 @@ var j = 0;
 var nbre_tour=0;
 let imax = 9;
 let jmax = 9; 
+//TODO 1. SE PASSER DE CES VARIABLES (4) EN UTILISANT LES OBJETS
 var playerX1=0;
 var playerY1=0;
 var playerX2=0;
@@ -15,6 +18,7 @@ var playerY2=0;
 var rep_attaque = "";
 
 //Definition de la classe Arme
+//TODO 8. DANS UN FICHIER À PART LES CLASSES Arme et Joueur
 class Arme {
     constructor(nom, degat) {
         this.nom = nom;
@@ -28,7 +32,7 @@ class Joueur {
         this.nom =nom;
         this.vie =vie;
         this.arme=arme;
-        this.i1 =0;
+        this.i1 =0; //TODO 2. POURQUOI i1 ET PAS JUSTE i, IDEM POUR J
         this.j1 =0;
     }
     
@@ -42,12 +46,12 @@ class Joueur {
                         this.i1 = i;
                         this.j1 = j;
                         if(n===1) {
-                            playerX1 = i;
-                            playerY1 = j;
+                            playerX1 = i; //TODO 3
+                            playerY1 = j; //TODO 3
                             
                         }else if(n===2) {
-                            playerX2 = i;
-                            playerY2 = j;
+                            playerX2 = i; //TODO 3
+                            playerY2 = j; //TODO 3
                             
                         }
                         
@@ -70,6 +74,7 @@ class Joueur {
 
    deplaceJoueur(){
     
+	//TODO 5. ÉVITER DE RÉPÉTER LE MÊME CODE 4 FOIS. FACTORISER.
     trouve = false;
     clearHighlight();
        
@@ -277,12 +282,12 @@ function highlight(n) {
 
                 var elementImage = document.createElement("img");
                 elementImage.src = "../case1.png";
-                table.rows[playerX1].cells[playerY1].innerHTML = '';
-                table.rows[playerX1].cells[playerY1].appendChild(elementImage);
+                table.rows[playerX1].cells[playerY1].innerHTML = ''; //TODO 6 playerX1 playerY1
+                table.rows[playerX1].cells[playerY1].appendChild(elementImage); //TODO 6 playerX1 playerY1
                 
 
-                playerX1 = newX;
-                playerY1 = newY;
+                playerX1 = newX; //TODO 6 playerX1 ...
+                playerY1 = newY; //TODO 6 playerY1 ...
 
                 if (table.rows[playerX1].cells[playerY1].innerHTML === '<img src="../arme1.png">' || table.rows[playerX1].cells[playerY1].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
                     
@@ -457,7 +462,7 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
     
 }    
 
-function detecteCombat() {
+function detecteCombat() { //TODO 7 : OBJETS PLAYERS EN PARAMÈTRE
     if(playerX1 === playerX2) {
         if(Math.abs(playerY1-playerY2) === 1) {
            return true;
@@ -692,6 +697,7 @@ joueur2.decrire();
 /* 
 programme principal
 */
+//TODO 8 : EST-CE UTILE ?
       if (detecteCombat() === true) {
             console.log("relancer la partie.");
                  }
@@ -702,6 +708,6 @@ programme principal
       
     
 
-    
+    //TODO 10. PEUX-TU REPÉRER RAPIDEMENT À QUEL ENDROIT L'ALTERNANCE A LIEU ?
     
 })
