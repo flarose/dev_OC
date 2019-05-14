@@ -46,12 +46,12 @@ class Joueur {
                         this.i1 = i;
                         this.j1 = j;
                         if(n===1) {
-                            playerX1 = i; //TODO 3
-                            playerY1 = j; //TODO 3
+                            playerX1 = i; //TODO 3 player1.i = i
+                            playerY1 = j; //TODO 3 player1.j = j
                             
                         }else if(n===2) {
-                            playerX2 = i; //TODO 3
-                            playerY2 = j; //TODO 3
+                            playerX2 = i; //TODO 3 player2.i = i
+                            playerY2 = j; //TODO 3 player2.j = j
                             
                         }
                         
@@ -78,6 +78,8 @@ class Joueur {
     trouve = false;
     clearHighlight();
        
+	//DÉBUT DE LA PREMIÈRE INSTANCE
+	   
     var j = this.j1; 
     for (i=this.i1-1; i>=this.i1-3;i--) {
             if(trouve === false) {
@@ -122,7 +124,8 @@ class Joueur {
 
     }
     
-    
+    //FIN DE LA PREMIÈRE INSTANCE
+	
     trouve = false; 
     var j = this.j1;
     for (i=this.i1+1; i<=this.i1+3;i++) {
@@ -697,7 +700,7 @@ joueur2.decrire();
 /* 
 programme principal
 */
-//TODO 8 : EST-CE UTILE ?
+//Éviter de débuter la partie avec un combat
       if (detecteCombat() === true) {
             console.log("relancer la partie.");
                  }
@@ -706,8 +709,5 @@ programme principal
       joueur1.deplaceJoueur();
       highlight(1);
       
-    
-
-    //TODO 10. PEUX-TU REPÉRER RAPIDEMENT À QUEL ENDROIT L'ALTERNANCE A LIEU ?
-    
+        
 })
