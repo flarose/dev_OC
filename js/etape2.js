@@ -347,26 +347,26 @@ function highlight(n) {
                 playerY2 = newY;
 
                 if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme1.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
                     joueur2.arme = arme1;
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme2.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
                     joueur2.arme = arme2;
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
 
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme3.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
                     joueur2.arme = arme3;
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
 
 
                 } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme4.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
                     joueur2.arme = arme4;
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur2.arme.degat);
 
 
                 }
@@ -480,13 +480,13 @@ function attaqueJoueur(joueur_Attaque) {
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur2.vie -= joueur1.arme.degat;
                 if(joueur2.vie > 0) {
-                    alert("Joueur2, il  te reste : " + joueur2.vie + " points de vie.");
+                    console.log("Joueur2, il  te reste : " + joueur2.vie + " points de vie.");
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur2.vie -= (joueur1.arme.degat)/2;
                 if(joueur2.vie > 0) {
-                    alert("Joueur2, il  te reste " + joueur2.vie + " points de vie.");
+                    console.log("Joueur2, il  te reste " + joueur2.vie + " points de vie.");
                 }
                 
             }
@@ -497,13 +497,13 @@ function attaqueJoueur(joueur_Attaque) {
             if(rep_attaque==='A' || rep_attaque==='a') {
                 joueur1.vie -= joueur2.arme.degat;
                 if(joueur1.vie > 0) {
-                   alert("Joueur1, il te reste : " + joueur1.vie + " points de vie."); 
+                   console.log("Joueur1, il te reste : " + joueur1.vie + " points de vie."); 
                 }
                 
             } else if((rep_attaque==='D' || rep_attaque==='d')) {
                 joueur1.vie -= (joueur2.arme.degat)/2;
                 if(joueur1.vie > 0) {
-                    alert("Joueur1, il te reste : " + joueur1.vie + " points de vie.");
+                    console.log("Joueur1, il te reste : " + joueur1.vie + " points de vie.");
                 }
                 
             }
@@ -692,6 +692,7 @@ joueur2.decrire();
 /* 
 programme principal
 */
+      // évite de débuter la partie avec un combat
       if (detecteCombat() === true) {
             console.log("relancer la partie.");
                  }
