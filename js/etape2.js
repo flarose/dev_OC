@@ -3,15 +3,11 @@ $(function(){
 // Variables globales
 var gagne = true;
 var trouve = false;
-var i = 0;
-var j = 0;
+//var i = 0;
+//var j = 0;
 var nbre_tour=0;
 let imax = 9;
 let jmax = 9; 
-var playerX1=0;
-var playerY1=0;
-var playerX2=0;
-var playerY2=0;
 var rep_attaque = "";
 
 //Definition de la classe Arme
@@ -19,6 +15,8 @@ class Arme {
     constructor(nom, degat) {
         this.nom = nom;
         this.degat = degat;
+        this.iArme =0;
+        this.jArme=0;
     }
 }
 
@@ -28,8 +26,8 @@ class Joueur {
         this.nom =nom;
         this.vie =vie;
         this.arme=arme;
-        this.i1 =0;
-        this.j1 =0;
+        this.i =0;
+        this.j =0;
     }
     
     repereJoueur(n) {
@@ -39,18 +37,9 @@ class Joueur {
                 for (j = 0; j < table.rows[i].cells.length; j++) {
                     if (table.rows[i].cells[j].innerHTML === '<img src="../joueur' + n +'.png">') {
 
-                        this.i1 = i;
-                        this.j1 = j;
-                        if(n===1) {
-                            playerX1 = i;
-                            playerY1 = j;
-                            
-                        }else if(n===2) {
-                            playerX2 = i;
-                            playerY2 = j;
-                            
-                        }
-                        
+                        this.i = i;
+                        this.j = j;
+                      
                         trouve = true;
                         
 
@@ -63,206 +52,75 @@ class Joueur {
     
     decrire() {
         console.log(this.nom + ' a ' + this.vie + ' points de vie, il possede le ' + this.arme.nom);
-        console.log("la valeur i de :" + this.i1);
-        console.log("la valeur j de :" + this.j1);
+        console.log("la valeur i de :" + this.i);
+        console.log("la valeur j de :" + this.j);
     }
     
 
    deplaceJoueur(){
     
-    trouve = false;
     clearHighlight();
        
-    var j = this.j1; 
-    for (i=this.i1-1; i>=this.i1-3;i--) {
-            if(trouve === false) {
-                if (i<0) {
-                    trouve = true;
-                    } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                            
-                        //Alors mettre en surbrillance
-                        switch (table.rows[i].cells[j].innerHTML) {
-                            case '<img src="../case1.png">' :
-                                table.rows[i].cells[j].style.border = "3px solid black";
-                                var divElement = document.createElement("div");
-                                divElement.classList.add("highlight");
-                                divElement.innerHTML = '<img src="../case1.png">';
-                                table.rows[i].cells[j].innerHTML='';
-                                table.rows[i].cells[j].appendChild(divElement);
-                                break;
-                                
-                            case '<img src="../arme1.png">' :
-                                collisionArme(i,j,'arme1');
-                                break;
-                            case '<img src="../arme2.png">' :
-                                collisionArme(i,j,'arme2');
-                                break;
-                            case '<img src="../arme3.png">' :
-                                collisionArme(i,j,'arme3');
-                                break;
-                            case '<img src="../arme4.png">' :
-                                collisionArme(i,j,'arme4');
-                                break;
-                            default :
-                                trouve = true;
-                                break;
-                                }
-                      
-                            
-                    } else {
-                        trouve = true;
-                    }
-                    
-            }
+    trouve = false;   
+    var j = this.j; 
+    for (i=this.i-1; i>=this.i-3;i--) {
+        if(trouve === false) {
+            if (i<0) {
+                trouve = true;
+                } else  {
+                     trouveCase(i,j);
+                }
 
+        }
     }
     
     
     trouve = false; 
-    var j = this.j1;
-    for (i=this.i1+1; i<=this.i1+3;i++) {
+    var j = this.j;
+    for (i=this.i+1; i<=this.i+3;i++) {
         if(trouve === false) {
             if (i>(imax-1)) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                            
-                        //Alors mettre en surbrillance
-                        switch (table.rows[i].cells[j].innerHTML) {
-                            case '<img src="../case1.png">' :
-                                table.rows[i].cells[j].style.border = "3px solid black";
-                                var divElement = document.createElement("div");
-                                divElement.classList.add("highlight");
-                                divElement.innerHTML = '<img src="../case1.png">';
-                                table.rows[i].cells[j].innerHTML='';
-                                table.rows[i].cells[j].appendChild(divElement);
-                                break;
-                                
-                            case '<img src="../arme1.png">' :
-                                collisionArme(i,j,'arme1');
-                                break;
-                            case '<img src="../arme2.png">' :
-                                collisionArme(i,j,'arme2');
-                                break;
-                            case '<img src="../arme3.png">' :
-                                collisionArme(i,j,'arme3');
-                                break;
-                            case '<img src="../arme4.png">' :
-                                collisionArme(i,j,'arme4');
-                                break;
-                            default :
-                                trouve = true;
-                                break;
-                                }
-                      
-                            
-                    } else {
-                        trouve = true;
+                } else {
+                      trouveCase(i,j);
                     }
                 
         }
     }
     
-        
-    
     
     trouve = false;
-    var i = this.i1;
-    for (j=this.j1-1; j>=this.j1-3;j--) {
+    var i = this.i;
+    for (j=this.j-1; j>=this.j-3;j--) {
        if(trouve === false) {
             if (j<0) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                            
-                        //Alors mettre en surbrillance
-                        switch (table.rows[i].cells[j].innerHTML) {
-                            case '<img src="../case1.png">' :
-                                table.rows[i].cells[j].style.border = "3px solid black";
-                                var divElement = document.createElement("div");
-                                divElement.classList.add("highlight");
-                                divElement.innerHTML = '<img src="../case1.png">';
-                                table.rows[i].cells[j].innerHTML='';
-                                table.rows[i].cells[j].appendChild(divElement);
-                                break;
-                                
-                            case '<img src="../arme1.png">' :
-                                collisionArme(i,j,'arme1');
-                                break;
-                            case '<img src="../arme2.png">' :
-                                collisionArme(i,j,'arme2');
-                                break;
-                            case '<img src="../arme3.png">' :
-                                collisionArme(i,j,'arme3');
-                                break;
-                            case '<img src="../arme4.png">' :
-                                collisionArme(i,j,'arme4');
-                                break;
-                            default :
-                                trouve = true;
-                                break;
-                                }
-                      
-                            
-                    } else {
-                        trouve = true;
+                } else {
+                    trouveCase(i,j);
                     }
                 
         }
     }
-    
-        
     
     
     trouve = false;
-    var i = this.i1;
-    for (j=this.j1+1; j<=this.j1+3;j++) {
+    var i = this.i;
+    for (j=this.j+1; j<=this.j+3;j++) {
         if(trouve === false) {
             if (j>(jmax-1)) {
                 trouve = true;
-                } else if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
-                            
-                        //Alors mettre en surbrillance
-                        switch (table.rows[i].cells[j].innerHTML) {
-                            case '<img src="../case1.png">' :
-                                table.rows[i].cells[j].style.border = "3px solid black";
-                                var divElement = document.createElement("div");
-                                divElement.classList.add("highlight");
-                                divElement.innerHTML = '<img src="../case1.png">';
-                                table.rows[i].cells[j].innerHTML='';
-                                table.rows[i].cells[j].appendChild(divElement);
-                                break;
-                                
-                            case '<img src="../arme1.png">' :
-                                collisionArme(i,j,'arme1');
-                                break;
-                            case '<img src="../arme2.png">' :
-                                collisionArme(i,j,'arme2');
-                                break;
-                            case '<img src="../arme3.png">' :
-                                collisionArme(i,j,'arme3');
-                                break;
-                            case '<img src="../arme4.png">' :
-                                collisionArme(i,j,'arme4');
-                                break;
-                            default :
-                                trouve = true;
-                                break;
-                                }
-                      
-                            
-                    } else {
-                        trouve = true;
+                } else {
+                     trouveCase(i,j);
                     }
                 
         }
     }
-       
-    
-        
+         
     }
     
   
   
-} 
+}
 
 
 // on definit la fonction hightlight() du programme principal    
@@ -276,30 +134,43 @@ function highlight(n) {
                 var newY = $(this).closest("td").index();
 
                 var elementImage = document.createElement("img");
-                elementImage.src = "../case1.png";
-                table.rows[playerX1].cells[playerY1].innerHTML = '';
-                table.rows[playerX1].cells[playerY1].appendChild(elementImage);
+                
+                if(joueur1.i === arme1.iArme && joueur1.j === arme1.jArme) {
+                    elementImage.src = "../arme1.png";
+                   } else if(joueur1.i === arme2.iArme && joueur1.j === arme2.jArme) {
+                    elementImage.src = "../arme2.png";
+                }else if(joueur1.i === arme3.iArme && joueur1.j === arme3.jArme) {
+                    elementImage.src = "../arme3.png";
+                } else if(joueur1.i === arme4.iArme && joueur1.j === arme4.jArme) {
+                    elementImage.src = "../arme4.png";
+                }else {
+                     elementImage.src = "../case1.png";    
+                         }
+                
+                
+                table.rows[joueur1.i].cells[joueur1.j].innerHTML = '';
+                table.rows[joueur1.i].cells[joueur1.j].appendChild(elementImage);
                 
 
-                playerX1 = newX;
-                playerY1 = newY;
+                joueur1.i = newX;
+                joueur1.j = newY;
 
-                if (table.rows[playerX1].cells[playerY1].innerHTML === '<img src="../arme1.png">' || table.rows[playerX1].cells[playerY1].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
+                if (table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<img src="../arme1.png">' || table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
                     
                     console.log(joueur1.arme.degat);
                     joueur1.arme = arme1;
                     console.log(joueur1.arme.degat);
                     
 
-                } else if (table.rows[playerX1].cells[playerY1].innerHTML === '<img src="../arme2.png">' || table.rows[playerX1].cells[playerY1].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
+                } else if (table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<img src="../arme2.png">' || table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
                     
                     console.log(joueur1.arme.degat);
                     joueur1.arme = arme2;
-                    console.log(joueur1.arme.degat);
+                    console.log(joueur1.arme.degat + " (attention : arme faible !)");
                     
 
 
-                } else if (table.rows[playerX1].cells[playerY1].innerHTML === '<img src="../arme3.png">' || table.rows[playerX1].cells[playerY1].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
+                } else if (table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<img src="../arme3.png">' || table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
                     
                     console.log(joueur1.arme.degat);
                     joueur1.arme = arme3;
@@ -307,7 +178,7 @@ function highlight(n) {
                     
 
 
-                } else if (table.rows[playerX1].cells[playerY1].innerHTML === '<img src="../arme4.png">' || table.rows[playerX1].cells[playerY1].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
+                } else if (table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<img src="../arme4.png">' || table.rows[joueur1.i].cells[joueur1.j].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
                     
                     console.log(joueur1.arme.degat);
                     joueur1.arme = arme4;
@@ -320,13 +191,13 @@ function highlight(n) {
                 
                 elementImage.src = "../joueur1.png";
                 
-                table.rows[playerX1].cells[playerY1].innerHTML = '';
-                table.rows[playerX1].cells[playerY1].appendChild(elementImage);
+                table.rows[joueur1.i].cells[joueur1.j].innerHTML = '';
+                table.rows[joueur1.i].cells[joueur1.j].appendChild(elementImage);
 
                  
                     
                  //on detecte le combat
-                if (detecteCombat() === true) {
+                if (detecteCombat(joueur1, joueur2) === true) {
                      
                     attaqueJoueur(joueur1);
                  }
@@ -338,32 +209,44 @@ function highlight(n) {
                 var newY = $(this).closest("td").index();
 
                 var elementImage = document.createElement("img");
-                elementImage.src = "../case1.png";
-                table.rows[playerX2].cells[playerY2].innerHTML = '';
-                table.rows[playerX2].cells[playerY2].appendChild(elementImage);
+                
+                if(joueur2.i === arme1.iArme && joueur2.j === arme1.jArme) {
+                    elementImage.src = "../arme1.png";
+                   } else if(joueur2.i === arme2.iArme && joueur2.j === arme2.jArme) {
+                        elementImage.src = "../arme2.png";
+                    }else if(joueur2.i === arme3.iArme && joueur2.j === arme3.jArme) {
+                        elementImage.src = "../arme3.png";
+                    } else if(joueur2.i === arme4.iArme && joueur2.j === arme4.jArme) {
+                        elementImage.src = "../arme4.png";
+                    }else {
+                         elementImage.src = "../case1.png";    
+                    }
+                
+                table.rows[joueur2.i].cells[joueur2.j].innerHTML = '';
+                table.rows[joueur2.i].cells[joueur2.j].appendChild(elementImage);
                 
 
-                playerX2 = newX;
-                playerY2 = newY;
+                joueur2.i = newX;
+                joueur2.j = newY;
 
-                if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme1.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
+                if (table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<img src="../arme1.png">' || table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<div class="highlight"><img src="../arme1.png"></div>') {
                     console.log(joueur2.arme.degat);
                     joueur2.arme = arme1;
                     console.log(joueur2.arme.degat);
 
-                } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme2.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
+                } else if (table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<img src="../arme2.png">' || table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<div class="highlight"><img src="../arme2.png"></div>') {
                     console.log(joueur2.arme.degat);
                     joueur2.arme = arme2;
                     console.log(joueur2.arme.degat);
 
 
-                } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme3.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
+                } else if (table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<img src="../arme3.png">' || table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<div class="highlight"><img src="../arme3.png"></div>') {
                     console.log(joueur2.arme.degat);
                     joueur2.arme = arme3;
                     console.log(joueur2.arme.degat);
 
 
-                } else if (table.rows[playerX2].cells[playerY2].innerHTML === '<img src="../arme4.png">' || table.rows[playerX2].cells[playerY2].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
+                } else if (table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<img src="../arme4.png">' || table.rows[joueur2.i].cells[joueur2.j].innerHTML === '<div class="highlight"><img src="../arme4.png"></div>') {
                     console.log(joueur2.arme.degat);
                     joueur2.arme = arme4;
                     console.log(joueur2.arme.degat);
@@ -375,13 +258,13 @@ function highlight(n) {
                 
                 elementImage.src = "../joueur2.png";
                 
-                table.rows[playerX2].cells[playerY2].innerHTML = '';
-                table.rows[playerX2].cells[playerY2].appendChild(elementImage);
+                table.rows[joueur2.i].cells[joueur2.j].innerHTML = '';
+                table.rows[joueur2.i].cells[joueur2.j].appendChild(elementImage);
 
                  
                 
                  //on detecte le combat
-                 if (detecteCombat() === true) {
+                 if (detecteCombat(joueur1, joueur2) === true) {
                      
                      attaqueJoueur(joueur2);
                  }
@@ -447,6 +330,7 @@ function highlight(n) {
         
     }  
 
+
 function collisionArme(i_Arme,j_Arme,nom_Arme) {
     table.rows[i_Arme].cells[j_Arme].style.border = "3px solid black";
     var divElement = document.createElement("div");
@@ -455,16 +339,53 @@ function collisionArme(i_Arme,j_Arme,nom_Arme) {
     table.rows[i_Arme].cells[j_Arme].innerHTML='';
     table.rows[i_Arme].cells[j_Arme].appendChild(divElement);
     
-}    
+}   
 
-function detecteCombat() {
-    if(playerX1 === playerX2) {
-        if(Math.abs(playerY1-playerY2) === 1) {
+function trouveCase(i,j) {
+    if (table.rows[i].cells[j].innerHTML === '<img src="../case1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme1.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme2.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme3.png">' || table.rows[i].cells[j].innerHTML === '<img src="../arme4.png">') {
+                            
+        //Alors mettre en surbrillance
+        switch (table.rows[i].cells[j].innerHTML) {
+            case '<img src="../case1.png">' :
+                table.rows[i].cells[j].style.border = "3px solid black";
+                var divElement = document.createElement("div");
+                divElement.classList.add("highlight");
+                divElement.innerHTML = '<img src="../case1.png">';
+                table.rows[i].cells[j].innerHTML='';
+                table.rows[i].cells[j].appendChild(divElement);
+                break;
+
+            case '<img src="../arme1.png">' :
+                collisionArme(i,j,'arme1');
+                break;
+            case '<img src="../arme2.png">' :
+                collisionArme(i,j,'arme2');
+                break;
+            case '<img src="../arme3.png">' :
+                collisionArme(i,j,'arme3');
+                break;
+            case '<img src="../arme4.png">' :
+                collisionArme(i,j,'arme4');
+                break;
+            default :
+                trouve = true;
+                break;
+                }
+                      
+                            
+        } else {
+            trouve = true;
+        }
+}
+
+function detecteCombat(Joueur1, Joueur2) {
+    if(Joueur1.i === Joueur2.i) {
+        if(Math.abs(Joueur1.j-Joueur2.j) === 1) {
            return true;
            }
        
-       } else if(playerY1 === playerY2) {
-           if(Math.abs(playerX1-playerX2) === 1) {
+       } else if(Joueur1.j === Joueur2.j) {
+           if(Math.abs(Joueur1.i-Joueur2.i) === 1) {
            return true;
            }
         
@@ -550,7 +471,7 @@ function placeMur(i, j){
 }
 
 function placeJoueur(joueur){
-    trouve=false;
+    var trouve=false;
     while (trouve !== true) {
         var i= Math.floor(Math.random()*9);
         var j= Math.floor(Math.random()*9);
@@ -566,7 +487,7 @@ function placeJoueur(joueur){
 }
 
 function placeArme(arme){
-    trouve = false;
+    var trouve = false;
     while (trouve !== true) {
         var i= Math.floor(Math.random()*9);
         var j= Math.floor(Math.random()*9);
@@ -610,7 +531,11 @@ placeArme(5);
 placeArme(6);
 placeArme(7);
 
-
+arme1 = new Arme('Arme1', 10);
+arme2 = new Arme('Arme2', 5);
+arme3 = new Arme('Arme3', 15);
+arme4 = new Arme('Arme4', 20);
+    
 //Parcours de la carte, on remplace les chiffres par les images correspondantes
 for (i = 0; i < table.rows.length; i++) {
     for (j = 0; j < table.rows[i].cells.length; j++) {
@@ -644,25 +569,33 @@ for (i = 0; i < table.rows.length; i++) {
                 elementImage.src = "../arme1.png";
                 table.rows[i].cells[j].innerHTML = '';
                 table.rows[i].cells[j].appendChild(elementImage);
+                arme1.iArme=i;
+                arme1.jArme=j;
                 break;
                 
             case "5" :
                 elementImage.src = "../arme2.png";
                 table.rows[i].cells[j].innerHTML = '';
                 table.rows[i].cells[j].appendChild(elementImage);
+                arme2.iArme=i;
+                arme2.jArme=j;
                 break;
                 
             case "6" :
                 elementImage.src = "../arme3.png";
                 table.rows[i].cells[j].innerHTML = '';
                 table.rows[i].cells[j].appendChild(elementImage);
+                arme3.iArme=i;
+                arme3.jArme=j;
                 break;
                 
             case "7" :
                 elementImage.src = "../arme4.png";
-                 table.rows[i].cells[j].innerHTML = '';
-                 table.rows[i].cells[j].appendChild(elementImage);
-                 break;
+                table.rows[i].cells[j].innerHTML = '';
+                table.rows[i].cells[j].appendChild(elementImage);
+                arme4.iArme=i;
+                arme4.jArme=j;
+                break;
             
             default :
                 elementImage.src = "../case1.png";
@@ -676,10 +609,7 @@ for (i = 0; i < table.rows.length; i++) {
 }
  ////////////////////////////////////////////////////////////////////////////   
 // Fin Creation de la carte
-arme1 = new Arme('Arme1', 10);
-arme2 = new Arme('Arme2', 5);
-arme3 = new Arme('Arme3', 15);
-arme4 = new Arme('Arme4', 20);
+
 
 joueur1 = new Joueur('Joueur1', 100,arme1);
 joueur2 = new Joueur('Joueur2', 100,arme1);
@@ -693,7 +623,7 @@ joueur2.decrire();
 programme principal
 */
       // évite de débuter la partie avec un combat
-      if (detecteCombat() === true) {
+      if (detecteCombat(joueur1, joueur2) === true) {
             console.log("relancer la partie.");
                  }
                 
