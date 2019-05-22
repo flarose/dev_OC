@@ -11,17 +11,17 @@ let jmax = 9;
 var rep_attaque = "";
 
 //Definition de la classe Arme
-class Arme {
+/*class Arme {
     constructor(nom, degat) {
         this.nom = nom;
         this.degat = degat;
         this.iArme =0;
         this.jArme=0;
     }
-}
+}*/
 
 //Definition de la classe Joueur
-class Joueur {
+/*class Joueur {
     constructor(nom, vie, arme) {
         this.nom =nom;
         this.vie =vie;
@@ -120,7 +120,7 @@ class Joueur {
     
   
   
-}
+}*/
 
 
 // on definit la fonction hightlight() du programme principal    
